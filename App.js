@@ -3,7 +3,7 @@ import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Rig
 import AppHeader from './Components/AppHeader'
 import AppFooter from './Components/AppFooter'
 
-export default class AnatomyExample extends Component {
+export default class App extends Component {
     constructor() {
       super();
       this.state = {
@@ -28,6 +28,9 @@ export default class AnatomyExample extends Component {
       return (
         <Container>
           <AppHeader />
+          <Content>
+            <Text>Its working!</Text>
+          </Content>
           <AppFooter />
         </Container>
       );
