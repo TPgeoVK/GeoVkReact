@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
 import AppHeader from './Components/AppHeader'
 import AppFooter from './Components/AppFooter'
+import LoginPage from './Components/LoginPage/LoginPage'
 
 export default class App extends Component {
     constructor() {
@@ -27,11 +28,7 @@ export default class App extends Component {
       }
       return (
         <Container>
-          <AppHeader />
-          <Content>
-            <Text>Its working!</Text>
-          </Content>
-          <AppFooter />
+          <LoginPage/>
         </Container>
       );
     }
