@@ -76,13 +76,10 @@ export default class CheckinsPage extends Component {
 						{justifyContent: 'center', alignItems: 'center',}
 					]}
 				>
-					<Thumbnail
-						style={{
-						width: 200,
-						height: 200,
-						}}
-						large source={{uri: 'http://glamsquadmagazine.com/wp-content/uploads/2017/04/julia_roberts.jpg'}}
+
+					<Image style={styles.circle} source={{uri: 'http://glamsquadmagazine.com/wp-content/uploads/2017/04/julia_roberts.jpg'}}
 					/>
+
 				</Animated.View>
 				<Animated.View
 					style={[

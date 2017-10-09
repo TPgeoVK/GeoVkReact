@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Image, View} from 'react-native';
-import {Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body} from 'native-base';
+import {Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Left, Body, Right} from 'native-base';
 import styles from './styleCard'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default class CheckinCard extends Component {
 	render() {
@@ -29,13 +30,19 @@ export default class CheckinCard extends Component {
 					</Body>
 				</CardItem>
 				<View style={styles.footer}>
-					<CardItem>
+					<CardItem style={styles.footerItem}>
 						<Left>
-							<Button transparent textStyle={{color: styles.buttonColor}}>
-								<Icon name="logo-github"/>
-								<Text>1,925 stars</Text>
+							<Button transparent>
+								<Icon name="favorite-border" style={styles.icon}/>
+								<Text style={styles.text}>1,925</Text>
 							</Button>
 						</Left>
+						<Right>
+							<Button transparent>
+								<Icon name="share" style={styles.icon}/>
+								<Text style={styles.text}>1,925</Text>
+							</Button>
+						</Right>
 					</CardItem>
 				</View>
 			</Card>

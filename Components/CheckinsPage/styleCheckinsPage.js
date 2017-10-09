@@ -13,7 +13,7 @@ export default styles = {
 		top: 0,
 		left: 0,
 		right: 0,
-		backgroundColor: '#03A9F4',
+		backgroundColor: '#6796CC',
 		overflow: 'hidden',
 		height: consts.HEADER_MAX_HEIGHT,
 	},
@@ -38,8 +38,9 @@ export default styles = {
 		right: 0,
 	},
 	title: {
+		backgroundColor: 'transparent',
 		color: 'white',
-		fontSize: 18,
+		fontSize: 28,
 	},
 	scrollViewContent: {
 		marginTop: consts.HEADER_MAX_HEIGHT,
@@ -51,4 +52,10 @@ export default styles = {
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
+
+	circle: {
+		width: 150,
+		height: 150,
+		borderRadius: 150/2,
+	}
 }
