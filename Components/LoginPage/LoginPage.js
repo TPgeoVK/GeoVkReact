@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {AppRegistry, Image, StyleSheet, View} from 'react-native';
 import {Container, Content, Button, Text} from 'native-base';
-import styles from './styles'
+import styles from './styleLoginPage'
 
 export default class LoginPage extends Component {
 	render() {

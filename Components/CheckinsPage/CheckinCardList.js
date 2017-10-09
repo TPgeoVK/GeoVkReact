@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Fab } from 'native-base';
 import CheckinCard from './CheckinCard'
 
 export default class CheckinCardList extends Component {
   render() {
     return (
-        <Container>
+        <Content>
             <CheckinCard />
             <CheckinCard />
-        </Container>
+            <CheckinCard />
+            <CheckinCard />
+            <CheckinCard />
+            <CheckinCard />
+            <CheckinCard />
+        </Content>
         );
     }
 }
