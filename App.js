@@ -5,6 +5,7 @@ import AppFooter from './Components/AppFooter'
 import LoginPage from './Components/LoginPage/LoginPage'
 import CheckinsPage from './Components/CheckinsPage/CheckinsPage'
 import Menu from './Components/Menu/Menu'
+import MapPage from './Components/MapPage/MapPage'
 
 export default class App extends Component {
 	constructor() {
@@ -30,7 +31,7 @@ export default class App extends Component {
 		}
 		return (
 			<Container>
-				<CheckinsPage/>
+				<MapPage/>
 				<Menu/>
 			</Container>
 		);
