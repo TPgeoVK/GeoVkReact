@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Image, Animated, Platform, StatusBar, StyleSheet, View,} from 'react-native';
-import {Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body} from 'native-base';
+import {Container, Fab,Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body} from 'native-base';
 import CheckinCardList from './CheckinCardList';
 import styles from  './styleCheckinsPage';
 import * as consts from './constantsCheckinsPage'
@@ -94,6 +94,15 @@ export default class CheckinsPage extends Component {
 				>
 					<Text style={styles.title}>Julia Roberts</Text>
 				</Animated.View>
+				<Fab
+					active={this.state.active}
+					direction="up"
+					containerStyle={{ }}
+					style={{ backgroundColor: '#fafafa' }}
+					position="bottomRight">
+					<Icon style={{color:'#aaadb2'}} name="create" />
+
+				</Fab>
 			</View>
 		);
 	}

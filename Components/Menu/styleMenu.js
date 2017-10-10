@@ -1,10 +1,10 @@
 export default styles = {
 	footerTab: {
-		backgroundColor: '#fafafa',
+		// backgroundColor: '#fafafa',
 	},
 	footer: {
-		borderTopWidth: 0.01,
-		borderTopColor: '#000',
+		// borderTopWidth: 0.01,
+		// borderTopColor: '#000',
 	},
 	icon: {
 		fontSize: 30,

@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
-import {Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text} from 'native-base';
-import AppHeader from './Components/AppHeader'
-import AppFooter from './Components/AppFooter'
+import {Container, Header,StyleProvider, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text} from 'native-base';
+
 import LoginPage from './Components/LoginPage/LoginPage'
 import CheckinsPage from './Components/CheckinsPage/CheckinsPage'
 import Menu from './Components/Menu/Menu'
 import MapPage from './Components/MapPage/MapPage'
+import RecomendationsPage from './Components/RecomendationsPage/RecomendationsPage'
+
+import getTheme from './native-base-theme/components';
+import platform from './native-base-theme/variables/platform';
 
 export default class App extends Component {
 	constructor() {
@@ -30,10 +33,12 @@ export default class App extends Component {
 			return <Expo.AppLoading />;
 		}
 		return (
-			<Container>
-				<MapPage/>
-				<Menu/>
-			</Container>
+			<StyleProvider style={getTheme(platform)}>
+				<Container>
+					<CheckinsPage/>
+					<Menu/>
+				</Container>
+			</StyleProvider>
 		);
 	}
 }
