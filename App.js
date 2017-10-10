@@ -6,6 +6,7 @@ import CheckinsPage from './Components/CheckinsPage/CheckinsPage'
 import Menu from './Components/Menu/Menu'
 import MapPage from './Components/MapPage/MapPage'
 import RecomendationsPage from './Components/RecomendationsPage/RecomendationsPage'
+import NewPostPage from './Components/NewPostPage/NewPostPage'
 
 import getTheme from './native-base-theme/components';
 import platform from './native-base-theme/variables/platform';
@@ -35,8 +36,8 @@ export default class App extends Component {
 		return (
 			<StyleProvider style={getTheme(platform)}>
 				<Container>
-					<CheckinsPage/>
-					<Menu/>
+					<NewPostPage/>
+					{/*<Menu/>*/}
 				</Container>
 			</StyleProvider>
 		);
