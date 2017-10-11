@@ -6,6 +6,7 @@ import styles from  './styleCheckinsPage';
 import * as consts from './constantsCheckinsPage'
 
 export default class CheckinsPage extends Component {
+
 	constructor(props) {
 		super(props);
 
@@ -98,9 +99,9 @@ export default class CheckinsPage extends Component {
 					active={this.state.active}
 					direction="up"
 					containerStyle={{ }}
-					style={{ backgroundColor: '#fafafa' }}
+					style={{ backgroundColor: '#6796CC' }}
 					position="bottomRight">
-					<Icon style={{color:'#aaadb2'}} name="create" />
+					<Icon style={{color:'#fff'}} name="create" />
 
 				</Fab>
 			</View>

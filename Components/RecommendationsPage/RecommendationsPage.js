@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {AppRegistry, Image, StyleSheet, View} from 'react-native';
 import {Container, Content, Button, Text, Tab, Tabs} from 'native-base';
 import AppHeader from '../Header/Header'
-import styles from './styleRecomendationsPage'
+import styles from './styleRecommendationsPage'
 import Friends from './FriendsTab';
 import Communities from './CommunitiesTab';
 export default class LoginPage extends Component {
