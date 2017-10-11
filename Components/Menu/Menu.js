@@ -4,7 +4,7 @@ import {
 	createNavigator,
 	createNavigationContainer,
 	TabRouter,
-	addNavigationHelpers,
+	addNavigationHelpers,StackNavigator
 } from 'react-navigation';
 
 import {Container, Header, Content, Footer, FooterTab, Button, Text} from 'native-base';
@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import CheckinsPage from '../CheckinsPage/CheckinsPage'
 import RecommendationsPage from '../RecommendationsPage/RecommendationsPage'
 import MapPage from '../MapPage/MapPage'
+import NewPost from '../NewPostPage/NewPostPage'
 
 
 const RecommendationsScreen = ({navigation}) => (
@@ -24,6 +25,10 @@ const CheckinsScreen = ({navigation}) => (
 
 const MapScreen = ({navigation}) => (
 	<MapPage navigation={navigation}/>
+);
+
+const NewPostScreen = () => (
+	<NewPost/>
 );
 
 
@@ -93,5 +98,17 @@ const CustomTabs = createNavigationContainer(
 	createNavigator(CustomTabRouter)(CustomTabView)
 );
 
+const Root = StackNavigator({
+	CustomTabs: {
+		screen: CustomTabs,
+	},
+	NewPost: {
+		screen: NewPost,
+	},
+}, {
+	mode: 'modal',
+	headerMode: 'none',
+});
 
-export default CustomTabs;
+
+export default Root;

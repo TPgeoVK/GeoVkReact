@@ -101,7 +101,9 @@ export default class CheckinsPage extends Component {
 					containerStyle={{ }}
 					style={{ backgroundColor: '#6796CC' }}
 					position="bottomRight">
-					<Icon style={{color:'#fff'}} name="create" />
+					<Icon style={{color:'#fff'}} name="create"
+					onPress={() => {this.props.navigation.navigate('NewPost')}}
+					/>
 
 				</Fab>
 			</View>

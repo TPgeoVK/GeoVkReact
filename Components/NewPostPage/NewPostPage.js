@@ -20,7 +20,7 @@ export default class App extends Component {
 
 					/>
 				</Content>
-				<NewPostMenu/>
+				<NewPostMenu navigation={this.props.navigation}/>
 			</Container>
 		)
 	}

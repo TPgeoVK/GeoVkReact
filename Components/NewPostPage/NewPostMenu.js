@@ -9,7 +9,8 @@ export default class NewPostMenu extends Component {
 		return (
 			<Footer style={styles.footer}>
 				<FooterTab style={styles.footerTab}>
-					<Button vertical>
+					<Button vertical
+					        onPress={() => {this.props.navigation.goBack()}}>
 						<Icon style={styles.icon} name="clear" />
 					</Button>
 					<Button vertical>

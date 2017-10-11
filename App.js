@@ -3,7 +3,7 @@ import {Container, Header,StyleProvider, Title, Content, Footer, FooterTab, Butt
 
 import LoginPage from './Components/LoginPage/LoginPage'
 import CheckinsPage from './Components/CheckinsPage/CheckinsPage'
-import CustomTabs from './Components/Menu/Menu'
+import Root from './Components/Menu/Menu'
 import MapPage from './Components/MapPage/MapPage'
 import RecomendationsPage from './Components/RecommendationsPage/RecommendationsPage'
 import NewPostPage from './Components/NewPostPage/NewPostPage'
@@ -37,7 +37,7 @@ export default class App extends Component {
 		return (
 			<StyleProvider style={getTheme(platform)}>
 				<Container>
-					<CustomTabs/>
+					<Root/>
 				</Container>
 			</StyleProvider>
 		);
