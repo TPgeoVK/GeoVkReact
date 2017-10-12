@@ -36,9 +36,10 @@ export default class App extends Component {
 		}
 		return (
 			<StyleProvider style={getTheme(platform)}>
-				<Container>
-					<Root/>
-				</Container>
+				{/*<Container>*/}
+					{/*<Root/>*/}
+				{/*</Container>*/}
+				<LoginPage />
 			</StyleProvider>
 		);
 	}

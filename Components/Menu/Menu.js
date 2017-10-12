@@ -104,7 +104,7 @@ const Root = StackNavigator({
 	},
 	NewPost: {
 		screen: NewPost,
-	},
+	}
 }, {
 	mode: 'modal',
 	headerMode: 'none',
