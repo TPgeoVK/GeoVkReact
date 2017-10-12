@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Container, Header,StyleProvider, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text} from 'native-base';
 
 import LoginPage from './Components/LoginPage/LoginPage'
+import LoginNavigator from './Components/LoginPage/LoginNavigator'
 import CheckinsPage from './Components/CheckinsPage/CheckinsPage'
 import Root from './Components/Menu/Menu'
 import MapPage from './Components/MapPage/MapPage'
@@ -36,10 +37,11 @@ export default class App extends Component {
 		}
 		return (
 			<StyleProvider style={getTheme(platform)}>
-				{/*<Container>*/}
+				<Container>
 					{/*<Root/>*/}
-				{/*</Container>*/}
-				<LoginPage />
+					<LoginNavigator/>
+				</Container>
+
 			</StyleProvider>
 		);
 	}

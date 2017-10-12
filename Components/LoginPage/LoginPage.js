@@ -14,7 +14,7 @@ export default class LoginPage extends Component {
 				<View style={styles.content}>
 					<Image style={styles.image}source={require('../../assets/logo.png')}/>
 					<Button style={styles.button}
-					        onPress=>
+					        onPress={() => {this.props.navigation.navigate('LoginView')}}>
 						<Text>Войти через ВКонтакте</Text>
 					</Button>
 				</View>
