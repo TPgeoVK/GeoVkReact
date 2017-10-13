@@ -78,7 +78,7 @@ export default class CheckinsPage extends Component {
 					]}
 				>
 
-					<Image style={styles.circle} source={{uri: 'http://glamsquadmagazine.com/wp-content/uploads/2017/04/julia_roberts.jpg'}}
+					<Image style={styles.circle} source={{uri: 'https://pp.userapi.com/c636330/v636330551/38cba/K6GgyC_wh3E.jpg'}}
 					/>
 
 				</Animated.View>
@@ -93,7 +93,7 @@ export default class CheckinsPage extends Component {
 						},
 					]}
 				>
-					<Text style={styles.title}>Julia Roberts</Text>
+					<Text style={styles.title}>Евфросиния Зерминова</Text>
 				</Animated.View>
 				<Fab
 					active={this.state.active}

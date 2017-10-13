@@ -1,6 +1,7 @@
 import { TabNavigator } from 'react-navigation';
 import LoginPage from '../LoginPage/LoginPage/';
 import LoginView from '../LoginPage/LoginView/';
+import Root from '../Menu/Menu/';
 import {
 	createNavigator,
 	createNavigationContainer,
@@ -14,7 +15,11 @@ const LoginNavigator = StackNavigator({
 	},
 	LoginView: {
 		screen: LoginView,
+	},
+	Root: {
+		screen: Root,
 	}
+
 }, {
 	mode: 'modal',
 	headerMode: 'none',
