@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, Animated, Platform, StatusBar, StyleSheet, View, AsyncStorage} from 'react-native';
+import {Image, Animated, Platform, StatusBar, StyleSheet, View, AsyncStorage, ActivityIndicator} from 'react-native';
 import {Fab, Text, Icon} from 'native-base';
 import CheckinCardList from './CheckinCardList';
 import styles from './styleCheckinsPage';
@@ -13,16 +13,20 @@ export default class CheckinsPage extends Component {
 		this.state = {
 			scrollY: new Animated.Value(0),
 			isLoading: true,
+			checkinsList: [],
 		};
 	}
 
-	componentWillMount() {
-		AsyncStorage.getItem('token', (err, result) => {
+	componentDidMount() {
+		return AsyncStorage.getItem('token', (err, result) => {
 			console.log('token from storage (for request):', result);
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + result)
 				.then((response) => response.json())
 				.then((responseJson) => {
-					console.log('checkins:', responseJson)
+					this.setState({
+						checkinsList: responseJson,
+						isLoading: false,
+					})
 				})
 				.catch((error) => {
 					console.error(error);
@@ -30,33 +34,29 @@ export default class CheckinsPage extends Component {
 		});
 	}
 
-	componentDidMount() {
-
-	}
 
 	_renderScrollViewContent() {
+		console.log('try to prop checkins');
+		console.log(this.state.checkinsList);
+		if (this.state.isLoading) {
+			return (
+				<View style={styles.scrollViewContent}>
+					<ActivityIndicator/>
+				</View>
+			);
+		}
 		return (
 			<View style={styles.scrollViewContent}>
-				<CheckinCardList/>
+				<CheckinCardList checkins={this.state.checkinsList}/>
 			</View>
 		);
+
 	}
 
 	render() {
 		const headerTranslate = this.state.scrollY.interpolate({
 			inputRange: [0, consts.HEADER_SCROLL_DISTANCE],
 			outputRange: [0, -consts.HEADER_SCROLL_DISTANCE],
-			extrapolate: 'clamp',
-		});
-
-		const imageOpacity = this.state.scrollY.interpolate({
-			inputRange: [0, consts.HEADER_SCROLL_DISTANCE / 2, consts.HEADER_SCROLL_DISTANCE],
-			outputRange: [1, 1, 0],
-			extrapolate: 'clamp',
-		});
-		const imageTranslate = this.state.scrollY.interpolate({
-			inputRange: [0, consts.HEADER_SCROLL_DISTANCE],
-			outputRange: [0, 100],
 			extrapolate: 'clamp',
 		});
 
@@ -122,6 +122,8 @@ export default class CheckinsPage extends Component {
 				</Fab>
 			</View>
 		);
+
+
 	}
 }
 

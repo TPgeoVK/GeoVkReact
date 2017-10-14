@@ -5,16 +5,13 @@ import CheckinCard from './CheckinCard'
 
 export default class CheckinCardList extends Component {
 	render() {
+		const checkins = this.props.checkins;
+		console.log('CheckinCardList', checkins)
 		return (
 			<Content>
-				<CheckinCard />
-				<CheckinCard />
-				<CheckinCard />
-				<CheckinCard />
-				<CheckinCard />
-				<CheckinCard />
-				<CheckinCard />
+				{checkins.map(checkin => (<CheckinCard key={checkin.checkinId} checkin={checkin}/>))}
 			</Content>
 		);
 	}
 }
+

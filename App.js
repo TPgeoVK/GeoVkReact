@@ -29,8 +29,8 @@ export default class App extends Component {
 			await fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + token)
 				.then((response) => response.json())
 				.then((responseJson) => {
-					console.log('token check response:', responseJson);
-					if (!responseJson['error']) this.state.isValidToken = true;
+					if (!responseJson['error'])
+						this.setState({isValidToken: true});
 					console.log('token valid!');
 				})
 				.catch((error) => {

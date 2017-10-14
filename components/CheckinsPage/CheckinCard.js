@@ -6,15 +6,17 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default class CheckinCard extends Component {
 	render() {
+		const checkin = this.props.checkin;
 		return (
 			<Card style={styles.card}>
 
 				<CardItem >
 					<Left>
+
 						<Thumbnail
 							source={{uri: 'http://www.sftravel.com/sites/sftraveldev.prod.acquia-sites.com/files/SanFrancisco_0.jpg'}}/>
 						<Body>
-						<Text>Brighton Beach</Text>
+						<Text>{checkin.placeTitle}</Text>
 						<Text note>April 15, 2016</Text>
 						</Body>
 					</Left>
