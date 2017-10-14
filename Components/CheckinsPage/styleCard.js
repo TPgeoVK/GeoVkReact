@@ -1,6 +1,7 @@
 export default styles = {
 	card: {
 		flex: 0,
+		flexWrap: 'nowrap'
 	},
 
 	footer: {
