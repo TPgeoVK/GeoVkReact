@@ -13,10 +13,8 @@ export default class LoginView extends Component {
 				this.props.navigation.goBack();
 			} else if (parsedUrl.search.indexOf('token=') >= 0) {
 				const token = parsedUrl.search.slice(7,);
-
 				AsyncStorage.setItem('token', token);
-
-				this.props.navigation.navigate('Root', {token: token});
+				// this.props.navigation.navigate('Root', {token: token});
 				isLogged = true;
 			}
 		}

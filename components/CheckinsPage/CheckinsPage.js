@@ -10,24 +10,28 @@ export default class CheckinsPage extends Component {
 
 	constructor(props) {
 		super(props);
-		let localToken = '';
-		//const token = await AsyncStorage.getItem('token');
 		this.state = {
 			scrollY: new Animated.Value(0),
+			isLoading: true,
 		};
-		console.log('token:',this.token);
 	}
 
+	componentWillMount() {
+		AsyncStorage.getItem('token', (err, result) => {
+			console.log(result);
+			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + result)
+				.then((response) => response.json())
+				.then((responseJson) => {
+					console.log('response obj:', responseJson)
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		});
+	}
 
 	componentDidMount() {
-		return fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + this.token)
-			.then((response) => response.json())
-			.then((responseJson) => {
-				console.log('response obj:', responseJson)
-			})
-			.catch((error) => {
-				console.error(error);
-			});
+
 	}
 
 	_renderScrollViewContent() {
