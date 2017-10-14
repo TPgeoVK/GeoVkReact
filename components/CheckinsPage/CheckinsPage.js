@@ -113,9 +113,9 @@ export default class CheckinsPage extends Component {
 					active={this.state.active}
 					direction="up"
 					containerStyle={{}}
-					style={{backgroundColor: '#6796CC'}}
+					style={styles.fab}
 					position="bottomRight">
-					<Icon style={{color: '#fff'}} name="create"
+					<Icon style={styles.icon} name="create"
 					      onPress={() => {
 						      this.props.navigation.navigate('NewPost')
 					      }}/>

@@ -57,5 +57,13 @@ export default styles = {
 		width: 150,
 		height: 150,
 		borderRadius: 150 / 2,
+	},
+
+	icon: {
+		color: '#fff'
+	},
+
+	fab: {
+		backgroundColor: '#6796CC'
 	}
 }

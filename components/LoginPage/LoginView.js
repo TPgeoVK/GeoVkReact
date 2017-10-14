@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {WebView, AsyncStorage} from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import url from 'url'
+import styles from './styleLoginPage'
 
 let isLogged = false;
 
@@ -39,7 +40,7 @@ export default class LoginView extends Component {
 		return (
 			<WebView
 				source={{uri: 'http://tp2017.park.bmstu.cloud/tpgeovk/auth'}}
-				style={{marginTop: 20}}
+				style={styles.webview}
 				onNavigationStateChange={this._onNavigationStateChange.bind(this)}
 			/>
 		);
