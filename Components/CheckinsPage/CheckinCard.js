@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Image, View} from 'react-native';
-import {Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Left, Body, Right} from 'native-base';
+import {Card, CardItem, Thumbnail, Text, Button, Left, Body, Right} from 'native-base';
 import styles from './styleCard'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -12,7 +12,7 @@ export default class CheckinCard extends Component {
 				<CardItem >
 					<Left>
 						<Thumbnail
-						source={{uri: 'http://www.sftravel.com/sites/sftraveldev.prod.acquia-sites.com/files/SanFrancisco_0.jpg'}}/>
+							source={{uri: 'http://www.sftravel.com/sites/sftraveldev.prod.acquia-sites.com/files/SanFrancisco_0.jpg'}}/>
 						<Body>
 						<Text>Brighton Beach</Text>
 						<Text note>April 15, 2016</Text>

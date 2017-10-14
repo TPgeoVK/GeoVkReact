@@ -1,13 +1,12 @@
 import React from 'react';
-
 import {
 	createNavigator,
 	createNavigationContainer,
 	TabRouter,
-	addNavigationHelpers,StackNavigator
+	addNavigationHelpers,
+	StackNavigator
 } from 'react-navigation';
-
-import {Container, Header, Content, Footer, FooterTab, Button, Text} from 'native-base';
+import {Container, Footer, FooterTab, Button,} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CheckinsPage from '../CheckinsPage/CheckinsPage'
 import RecommendationsPage from '../RecommendationsPage/RecommendationsPage'
@@ -42,19 +41,21 @@ const CustomTabBar = ({navigation, activeTabName}) => {
 				        title={"Map"}
 				        onPress={() => navigation.navigate('Map')}>
 					<Icon
-						style={(activeTabName == 'Map') ? styles.activeIcon :styles.icon}
+						style={(activeTabName == 'Map') ? styles.activeIcon : styles.icon}
 						name="map"
 					/>
 				</Button>
 				<Button vertical
 				        title={"Checkins"}
 				        onPress={() => navigation.navigate('Checkins')}>
-					<Icon style={(activeTabName == 'Checkins') ? styles.activeIcon :styles.icon} name="account-circle"/>
+					<Icon style={(activeTabName == 'Checkins') ? styles.activeIcon : styles.icon}
+					      name="account-circle"/>
 				</Button>
 				<Button vertical
 				        title={"Recommendations"}
 				        onPress={() => navigation.navigate('Recommendations')}>
-					<Icon style={(activeTabName =='Recommendations' ) ? styles.activeIcon :styles.icon} name="search"/>
+					<Icon style={(activeTabName == 'Recommendations' ) ? styles.activeIcon : styles.icon}
+					      name="search"/>
 				</Button>
 			</FooterTab>
 		</Footer>
@@ -73,7 +74,7 @@ const CustomTabView = ({router, navigation}) => {
 					state: routes[index],
 				})}
 			/>
-			<CustomTabBar navigation={navigation} activeTabName={ActiveTab} />
+			<CustomTabBar navigation={navigation} activeTabName={ActiveTab}/>
 		</Container>
 	);
 };
@@ -105,20 +106,20 @@ const CustomTabs = createNavigationContainer(
 );
 
 const Root = StackNavigator(
-{
-	CustomTabs: {
-		screen: CustomTabs,
-	},
-	NewPost: {
-		screen: NewPost,
-	}
+	{
+		CustomTabs: {
+			screen: CustomTabs,
+		},
+		NewPost: {
+			screen: NewPost,
+		}
 
-},
+	},
 
 	{
-	mode: 'modal',
-	headerMode: 'none',
-});
+		mode: 'modal',
+		headerMode: 'none',
+	});
 
 
 export default Root;

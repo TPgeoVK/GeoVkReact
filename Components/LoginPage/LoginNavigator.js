@@ -1,4 +1,3 @@
-import { TabNavigator } from 'react-navigation';
 import LoginPage from '../LoginPage/LoginPage/';
 import LoginView from '../LoginPage/LoginView/';
 import Root from '../Menu/Menu/';
@@ -6,7 +5,7 @@ import {
 	createNavigator,
 	createNavigationContainer,
 	TabRouter,
-	addNavigationHelpers,StackNavigator
+	addNavigationHelpers, StackNavigator
 } from 'react-navigation';
 
 const LoginNavigator = StackNavigator({

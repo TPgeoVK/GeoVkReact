@@ -10,7 +10,7 @@ export default styles = {
 	},
 
 	footerItem: {
-		height:40
+		height: 40
 	},
 
 	icon: {

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {AppRegistry, Image, StyleSheet, View} from 'react-native';
-import {Container, Content, Button, Text, Tab, Tabs} from 'native-base';
+import {Container, Tab, Tabs} from 'native-base';
 import AppHeader from '../Header/Header'
-import styles from './styleRecommendationsPage'
 import Friends from './FriendsTab';
 import Communities from './CommunitiesTab';
+
 export default class RecommendationsPage extends Component {
 	render() {
 		return (
@@ -12,11 +12,11 @@ export default class RecommendationsPage extends Component {
 				<AppHeader title={'Recommendations'}/>
 				<Tabs initialPage={0}>
 					<Tab
-					     heading="Friends">
+						heading="Friends">
 						<Friends />
 					</Tab>
 					<Tab
-					     heading="Communities">
+						heading="Communities">
 						<Communities />
 					</Tab>
 				</Tabs>

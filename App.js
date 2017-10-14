@@ -1,15 +1,6 @@
 import React, {Component} from 'react';
-import {Container, Header,StyleProvider, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text} from 'native-base';
-
-import LoginPage from './Components/LoginPage/LoginPage'
+import {Container, StyleProvider} from 'native-base';
 import LoginNavigator from './Components/LoginPage/LoginNavigator'
-import CheckinsPage from './Components/CheckinsPage/CheckinsPage'
-import Root from './Components/Menu/Menu'
-import MapPage from './Components/MapPage/MapPage'
-import RecomendationsPage from './Components/RecommendationsPage/RecommendationsPage'
-import NewPostPage from './Components/NewPostPage/NewPostPage'
-
-
 import getTheme from './native-base-theme/components';
 import platform from './native-base-theme/variables/platform';
 

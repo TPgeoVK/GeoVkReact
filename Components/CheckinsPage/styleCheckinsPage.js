@@ -56,6 +56,6 @@ export default styles = {
 	circle: {
 		width: 150,
 		height: 150,
-		borderRadius: 150/2,
+		borderRadius: 150 / 2,
 	}
 }

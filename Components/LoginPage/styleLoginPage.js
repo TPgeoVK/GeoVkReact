@@ -7,7 +7,7 @@ export default styles = {
 	},
 
 	image: {
-		height:50,
+		height: 50,
 		marginTop: 250,
 	},
 

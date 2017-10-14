@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Image, Animated, Platform, StatusBar, StyleSheet, View,} from 'react-native';
-import {Container, Content, Button, Text, Tab, Tabs} from 'native-base';
 import RecommendationsCardList from './RecommendationsCardList'
 
 export default class FriendsTab extends Component {

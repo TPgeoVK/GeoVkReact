@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Image, Animated, Platform, StatusBar, StyleSheet, View,} from 'react-native';
-import {Container, Fab,Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body} from 'native-base';
+import {Fab, Text, Icon} from 'native-base';
 import CheckinCardList from './CheckinCardList';
 import styles from  './styleCheckinsPage';
 import * as consts from './constantsCheckinsPage'
@@ -18,7 +18,7 @@ export default class CheckinsPage extends Component {
 
 	componentDidMount() {
 		console.log(this.state);
-		return fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token='+this.token)
+		return fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + this.token)
 			.then((response) => response.json())
 			.then((responseJson) => {
 				console.log('response obj:', responseJson)
@@ -90,7 +90,8 @@ export default class CheckinsPage extends Component {
 					]}
 				>
 
-					<Image style={styles.circle} source={{uri: 'https://pp.userapi.com/c636330/v636330551/38cba/K6GgyC_wh3E.jpg'}}
+					<Image style={styles.circle}
+					       source={{uri: 'https://pp.userapi.com/c636330/v636330551/38cba/K6GgyC_wh3E.jpg'}}
 					/>
 
 				</Animated.View>
@@ -110,11 +111,13 @@ export default class CheckinsPage extends Component {
 				<Fab
 					active={this.state.active}
 					direction="up"
-					containerStyle={{ }}
-					style={{ backgroundColor: '#6796CC' }}
+					containerStyle={{}}
+					style={{backgroundColor: '#6796CC'}}
 					position="bottomRight">
-					<Icon style={{color:'#fff'}} name="create"
-					onPress={() => {this.props.navigation.navigate('NewPost')}}
+					<Icon style={{color: '#fff'}} name="create"
+					      onPress={() => {
+						      this.props.navigation.navigate('NewPost')
+					      }}
 					/>
 
 				</Fab>
