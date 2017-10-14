@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import {AppRegistry, Image, StyleSheet, View, WebView} from 'react-native';
+import {AppRegistry, Image, StyleSheet, View, WebView, AsyncStorage} from 'react-native';
 import url from 'url'
 
 let isLogged = false;
-let token;
 
 export default class LoginView extends Component {
 
@@ -13,7 +12,10 @@ export default class LoginView extends Component {
 			if (parsedUrl.search.indexOf('error') >= 0) {
 				this.props.navigation.goBack();
 			} else if (parsedUrl.search.indexOf('token=') >= 0) {
-				token = parsedUrl.search.slice(7,);
+				const token = parsedUrl.search.slice(7,);
+
+				AsyncStorage.setItem('token', token);
+
 				this.props.navigation.navigate('Root', {token: token});
 				isLogged = true;
 			}

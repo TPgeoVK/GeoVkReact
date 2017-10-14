@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Container, StyleProvider} from 'native-base';
-import LoginNavigator from './Components/LoginPage/LoginNavigator'
+import LoginNavigator from './navigators/loginNavigator'
 import getTheme from './native-base-theme/components';
 import platform from './native-base-theme/variables/platform';
 
@@ -29,7 +29,6 @@ export default class App extends Component {
 		return (
 			<StyleProvider style={getTheme(platform)}>
 				<Container>
-					{/*<Root/>*/}
 					<LoginNavigator/>
 				</Container>
 

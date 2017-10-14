@@ -1,23 +1,25 @@
 import React, {Component} from 'react';
-import {Image, Animated, Platform, StatusBar, StyleSheet, View,} from 'react-native';
+import {Image, Animated, Platform, StatusBar, StyleSheet, View, AsyncStorage} from 'react-native';
 import {Fab, Text, Icon} from 'native-base';
 import CheckinCardList from './CheckinCardList';
 import styles from  './styleCheckinsPage';
-import * as consts from './constantsCheckinsPage'
+import * as consts from './constantsCheckinsPage';
+
 
 export default class CheckinsPage extends Component {
 
 	constructor(props) {
 		super(props);
-		this.token = this.props.navigation.state.params.token;
+		let localToken = '';
+		//const token = await AsyncStorage.getItem('token');
 		this.state = {
 			scrollY: new Animated.Value(0),
 		};
-		// console.log(token);
+		console.log('token:',this.token);
 	}
 
+
 	componentDidMount() {
-		console.log(this.state);
 		return fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + this.token)
 			.then((response) => response.json())
 			.then((responseJson) => {

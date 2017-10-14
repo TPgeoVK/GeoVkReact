@@ -1,6 +1,6 @@
-import LoginPage from '../LoginPage/LoginPage/';
-import LoginView from '../LoginPage/LoginView/';
-import Root from '../Menu/Menu/';
+import LoginPage from '../components/LoginPage/LoginPage/';
+import LoginView from '../components/LoginPage/LoginView/';
+import Root from './appNavigator';
 import {
 	createNavigator,
 	createNavigationContainer,
@@ -19,7 +19,8 @@ const LoginNavigator = StackNavigator({
 		screen: Root,
 	}
 
-}, {
+},
+	{
 	mode: 'modal',
 	headerMode: 'none',
 });
