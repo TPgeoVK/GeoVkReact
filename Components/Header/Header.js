@@ -6,7 +6,7 @@ export default class AppHeader extends Component {
 		return (
 			<Header>
 				<Body>
-					<Title style={styles.text}>Header</Title>
+					<Title style={styles.text}>{this.props.title}</Title>
 				</Body>
 			</Header>
 		);

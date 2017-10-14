@@ -10,25 +10,25 @@ export default class CheckinCard extends Component {
 			<Card style={styles.card}>
 
 				<CardItem >
-
 					<Left>
 						<Thumbnail
-							source={{uri: 'http://wallpaper.sc/en/ipad/wp-content/uploads/2014/10/ipad-2048x2048-thumbnail_00233-256x256.jpg'}}/>
+						source={{uri: 'http://www.sftravel.com/sites/sftraveldev.prod.acquia-sites.com/files/SanFrancisco_0.jpg'}}/>
 						<Body>
-							<Text>Brighton Beach</Text>
-							<Text note>April 15, 2016</Text>
+						<Text>Brighton Beach</Text>
+						<Text note>April 15, 2016</Text>
 						</Body>
 					</Left>
-
 				</CardItem>
+
 				<CardItem>
 					<Body>
-						<Text>
-							Brighton Beach is an oceanside neighborhood in the southern portion of the New York City borough
-							of Brooklyn, along the Coney Island peninsula.
-						</Text>
+					<Text>
+						Brighton Beach is an oceanside neighborhood in the southern portion of the New York City borough
+						of Brooklyn, along the Coney Island peninsula.
+					</Text>
 					</Body>
 				</CardItem>
+
 				<View style={styles.footer}>
 					<CardItem style={styles.footerItem}>
 						<Left>
@@ -49,4 +49,3 @@ export default class CheckinCard extends Component {
 		)
 	}
 }
-

@@ -5,12 +5,12 @@ import AppHeader from '../Header/Header'
 import styles from './styleRecommendationsPage'
 import Friends from './FriendsTab';
 import Communities from './CommunitiesTab';
-export default class LoginPage extends Component {
+export default class RecommendationsPage extends Component {
 	render() {
 		return (
 			<Container>
-				<AppHeader/>
-				<Tabs initialPage={1}>
+				<AppHeader title={'Recommendations'}/>
+				<Tabs initialPage={0}>
 					<Tab
 					     heading="Friends">
 						<Friends />

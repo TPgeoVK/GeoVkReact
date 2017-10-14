@@ -13,6 +13,7 @@ import CheckinsPage from '../CheckinsPage/CheckinsPage'
 import RecommendationsPage from '../RecommendationsPage/RecommendationsPage'
 import MapPage from '../MapPage/MapPage'
 import NewPost from '../NewPostPage/NewPostPage'
+import styles from './styleMenu'
 
 
 const RecommendationsScreen = ({navigation}) => (
@@ -32,7 +33,7 @@ const NewPostScreen = () => (
 );
 
 
-const CustomTabBar = ({navigation}) => {
+const CustomTabBar = ({navigation, activeTabName}) => {
 	const {routes} = navigation.state;
 	return (
 		<Footer>
@@ -40,17 +41,20 @@ const CustomTabBar = ({navigation}) => {
 				<Button vertical
 				        title={"Map"}
 				        onPress={() => navigation.navigate('Map')}>
-					<Icon style={styles.icon} name="map"/>
+					<Icon
+						style={(activeTabName == 'Map') ? styles.activeIcon :styles.icon}
+						name="map"
+					/>
 				</Button>
 				<Button vertical
 				        title={"Checkins"}
 				        onPress={() => navigation.navigate('Checkins')}>
-					<Icon style={styles.icon} name="account-circle"/>
+					<Icon style={(activeTabName == 'Checkins') ? styles.activeIcon :styles.icon} name="account-circle"/>
 				</Button>
 				<Button vertical
 				        title={"Recommendations"}
 				        onPress={() => navigation.navigate('Recommendations')}>
-					<Icon style={styles.icon} active name="search"/>
+					<Icon style={(activeTabName =='Recommendations' ) ? styles.activeIcon :styles.icon} name="search"/>
 				</Button>
 			</FooterTab>
 		</Footer>
@@ -60,6 +64,7 @@ const CustomTabBar = ({navigation}) => {
 const CustomTabView = ({router, navigation}) => {
 	const {routes, index} = navigation.state;
 	const ActiveScreen = router.getComponentForRouteName(routes[index].routeName);
+	const ActiveTab = routes[index].routeName
 	return (
 		<Container>
 			<ActiveScreen
@@ -68,7 +73,7 @@ const CustomTabView = ({router, navigation}) => {
 					state: routes[index],
 				})}
 			/>
-			<CustomTabBar navigation={navigation}/>
+			<CustomTabBar navigation={navigation} activeTabName={ActiveTab} />
 		</Container>
 	);
 };
@@ -78,6 +83,7 @@ const CustomTabRouter = TabRouter(
 		Checkins: {
 			screen: CheckinsScreen,
 			path: '',
+
 		},
 		Map: {
 			screen: MapScreen,
@@ -98,14 +104,18 @@ const CustomTabs = createNavigationContainer(
 	createNavigator(CustomTabRouter)(CustomTabView)
 );
 
-const Root = StackNavigator({
+const Root = StackNavigator(
+{
 	CustomTabs: {
 		screen: CustomTabs,
 	},
 	NewPost: {
 		screen: NewPost,
 	}
-}, {
+
+},
+
+	{
 	mode: 'modal',
 	headerMode: 'none',
 });

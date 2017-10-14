@@ -9,14 +9,26 @@ export default class CheckinsPage extends Component {
 
 	constructor(props) {
 		super(props);
-
+		this.token = this.props.navigation.state.params.token;
 		this.state = {
 			scrollY: new Animated.Value(0),
 		};
+		// console.log(token);
+	}
+
+	componentDidMount() {
+		console.log(this.state);
+		return fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token='+this.token)
+			.then((response) => response.json())
+			.then((responseJson) => {
+				console.log('response obj:', responseJson)
+			})
+			.catch((error) => {
+				console.error(error);
+			});
 	}
 
 	_renderScrollViewContent() {
-		const data = Array.from({length: 30});
 		return (
 			<View style={styles.scrollViewContent}>
 				<CheckinCardList/>

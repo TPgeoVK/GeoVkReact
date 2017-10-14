@@ -3,7 +3,7 @@ import {Image, Animated, Platform, StatusBar, StyleSheet, View,} from 'react-nat
 import {Container, Content, Button, Text, Tab, Tabs} from 'native-base';
 import RecommendationsCardList from './RecommendationsCardList'
 
-export default class LoginPage extends Component {
+export default class FriendsTab extends Component {
 	constructor(props) {
 		super(props);
 
