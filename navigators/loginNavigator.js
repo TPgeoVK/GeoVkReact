@@ -9,21 +9,21 @@ import {
 } from 'react-navigation';
 
 const LoginNavigator = StackNavigator({
-	LoginPage: {
-		screen: LoginPage,
-	},
-	LoginView: {
-		screen: LoginView,
-	},
-	Root: {
-		screen: Root,
-	}
+		LoginPage: {
+			screen: LoginPage,
+		},
+		LoginView: {
+			screen: LoginView,
+		},
+		Root: {
+			screen: Root,
+		}
 
-},
+	},
 	{
-	mode: 'modal',
-	headerMode: 'none',
-});
+		mode: 'modal',
+		headerMode: 'none',
+	});
 
 
 export default LoginNavigator;

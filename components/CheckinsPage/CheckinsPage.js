@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Image, Animated, Platform, StatusBar, StyleSheet, View, AsyncStorage} from 'react-native';
 import {Fab, Text, Icon} from 'native-base';
 import CheckinCardList from './CheckinCardList';
-import styles from  './styleCheckinsPage';
+import styles from './styleCheckinsPage';
 import * as consts from './constantsCheckinsPage';
 
 
@@ -18,11 +18,11 @@ export default class CheckinsPage extends Component {
 
 	componentWillMount() {
 		AsyncStorage.getItem('token', (err, result) => {
-			console.log(result);
+			console.log('token from storage (for request):', result);
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + result)
 				.then((response) => response.json())
 				.then((responseJson) => {
-					console.log('response obj:', responseJson)
+					console.log('checkins:', responseJson)
 				})
 				.catch((error) => {
 					console.error(error);
@@ -76,16 +76,14 @@ export default class CheckinsPage extends Component {
 				<StatusBar
 					translucent
 					barStyle="light-content"
-					backgroundColor="rgba(0, 0, 255, 0.9)"
-				/>
+					backgroundColor="rgba(0, 0, 255, 0.9)"/>
 				<Animated.ScrollView
 					style={styles.fill}
 					scrollEventThrottle={1}
 					onScroll={Animated.event(
 						[{nativeEvent: {contentOffset: {y: this.state.scrollY}}}],
 						{useNativeDriver: true},
-					)}
-				>
+					)}>
 					{this._renderScrollViewContent()}
 				</Animated.ScrollView>
 				<Animated.View
@@ -93,12 +91,10 @@ export default class CheckinsPage extends Component {
 						styles.header,
 						{transform: [{translateY: headerTranslate}]},
 						{justifyContent: 'center', alignItems: 'center',}
-					]}
-				>
+					]}>
 
 					<Image style={styles.circle}
-					       source={{uri: 'https://pp.userapi.com/c636330/v636330551/38cba/K6GgyC_wh3E.jpg'}}
-					/>
+					       source={{uri: 'https://pp.userapi.com/c636330/v636330551/38cba/K6GgyC_wh3E.jpg'}}/>
 
 				</Animated.View>
 				<Animated.View
@@ -110,8 +106,7 @@ export default class CheckinsPage extends Component {
 								{translateY: titleTranslate},
 							],
 						},
-					]}
-				>
+					]}>
 					<Text style={styles.title}>Евфросиния Зерминова</Text>
 				</Animated.View>
 				<Fab
@@ -123,9 +118,7 @@ export default class CheckinsPage extends Component {
 					<Icon style={{color: '#fff'}} name="create"
 					      onPress={() => {
 						      this.props.navigation.navigate('NewPost')
-					      }}
-					/>
-
+					      }}/>
 				</Fab>
 			</View>
 		);
