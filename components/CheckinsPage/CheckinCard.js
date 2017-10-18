@@ -5,11 +5,13 @@ import styles from './styleCard'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
-
 export default class CheckinCard extends Component {
 	render() {
 		const checkin = this.props.checkin;
-		const date = new Date(parseInt(checkin.date)*1000);
+		const date = new Date(parseInt(checkin.date) * 1000);
+		const month = date.getMonth();
+		const months = [ "янв", "фев", "мар", "апр", "май", "июн",
+			"июл", "авг", "сен", "окт", "ноя", "дек" ];
 		return (
 			<Card style={styles.card}>
 
@@ -17,10 +19,11 @@ export default class CheckinCard extends Component {
 					<Left>
 
 						{/*<Thumbnail*/}
-							{/*source={{uri: checkin.place.placeIcon}}/>*/}
+						{/*source={{uri: checkin.place.placeIcon}}/>*/}
 						<Body>
 						<Text>{checkin.place.title}</Text>
-						<Text note>{date.getDate()} {date.toLocaleString("en-us", { month: "short" })} {date.getFullYear()}</Text>
+						<Text
+							note>{date.getDate()} {months[month]} {date.getFullYear()}</Text>
 						</Body>
 					</Left>
 				</CardItem>

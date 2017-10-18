@@ -18,7 +18,7 @@ export default class App extends Component {
 					           autoFocus={true}
 					           autoCorrect={true}
 					           numberOfLines={4}
-					           placeholder=" Where are you? What are you doing now?"
+					           placeholder="Где Вы? Что сейчас делаете?"
 					           style={styles.input}
 					           underlineColorAndroid='transparent'
 							  />
