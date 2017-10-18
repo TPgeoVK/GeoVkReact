@@ -6,7 +6,7 @@ import RecommendationsCard from './RecommendationsCard'
 export default class RecommendationsCardList extends Component {
 	render() {
 		return (
-			<Content style={{}}>
+			<Content>
 				<RecommendationsCard />
 				<RecommendationsCard />
 				<RecommendationsCard />

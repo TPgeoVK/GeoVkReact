@@ -16,4 +16,7 @@ export default styles = {
 		marginTop: 50,
 		alignSelf: 'center',
 	},
+	webview: {
+		marginTop: 20
+	}
 }

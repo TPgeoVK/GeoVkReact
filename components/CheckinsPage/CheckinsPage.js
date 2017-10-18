@@ -22,7 +22,8 @@ export default class CheckinsPage extends Component {
 			console.log('token from storage (for request):', result);
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + result)
 				.then((response) => response.json())
-				.then((responseJson) => {
+				.then(async (responseJson) => {
+					// await AsyncStorage.setItem('checkinsList', responseJson);
 					this.setState({
 						checkinsList: responseJson,
 						isLoading: false,
@@ -113,9 +114,9 @@ export default class CheckinsPage extends Component {
 					active={this.state.active}
 					direction="up"
 					containerStyle={{}}
-					style={{backgroundColor: '#6796CC'}}
+					style={styles.fab}
 					position="bottomRight">
-					<Icon style={{color: '#fff'}} name="create"
+					<Icon style={styles.icon} name="create"
 					      onPress={() => {
 						      this.props.navigation.navigate('NewPost')
 					      }}/>

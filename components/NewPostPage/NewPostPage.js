@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import {Image, Animated, Platform, StatusBar, StyleSheet, TextInput, View,} from 'react-native';
+import {TextInput} from 'react-native';
 import {Container, Content} from 'native-base';
 import AppHeader from '../Header/Header'
 import NewPostMenu from '../NewPostPage/NewPostMenu'
+import styles from './styleNewPostMenu'
+
 
 export default class App extends Component {
 	render() {
@@ -14,11 +16,9 @@ export default class App extends Component {
 					           autoFocus={true}
 					           autoCorrect={true}
 					           numberOfLines={4}
-					           placeholder="What are you doing now?
-					            Where are you?"
-					           style={{borderWidth: 0, fontSize: 30}}
-
-					/>
+					           placeholder=" Where are you? What are you doing now?"
+					           style={styles.input}
+					           underlineColorAndroid='transparent'/>
 				</Content>
 				<NewPostMenu navigation={this.props.navigation}/>
 			</Container>
