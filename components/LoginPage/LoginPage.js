@@ -7,7 +7,6 @@ import LoginView from './LoginView'
 
 export default class LoginPage extends Component {
 
-
 	render() {
 		return (
 			<Container>
@@ -24,7 +23,3 @@ export default class LoginPage extends Component {
 		);
 	}
 }
-
-
-
-

@@ -5,6 +5,7 @@ import RecommendationsCard from './RecommendationsCard'
 
 export default class RecommendationsCardList extends Component {
 	render() {
+		console.log()
 		return (
 			<Content>
 				<RecommendationsCard />

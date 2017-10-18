@@ -4,20 +4,23 @@ import {Card, CardItem, Thumbnail, Text, Button, Left, Body, Right} from 'native
 import styles from './styleCard'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+
+
 export default class CheckinCard extends Component {
 	render() {
 		const checkin = this.props.checkin;
+		const date = new Date(parseInt(checkin.date)*1000);
 		return (
 			<Card style={styles.card}>
 
-				<CardItem >
+				<CardItem>
 					<Left>
 
-						<Thumbnail
-							source={{uri: 'http://www.sftravel.com/sites/sftraveldev.prod.acquia-sites.com/files/SanFrancisco_0.jpg'}}/>
+						{/*<Thumbnail*/}
+							{/*source={{uri: checkin.place.placeIcon}}/>*/}
 						<Body>
-						<Text>{checkin.placeTitle}</Text>
-						<Text note>April 15, 2016</Text>
+						<Text>{checkin.place.title}</Text>
+						<Text note>{date.getDate()} {date.toLocaleString("en-us", { month: "short" })} {date.getFullYear()}</Text>
 						</Body>
 					</Left>
 				</CardItem>
@@ -25,8 +28,7 @@ export default class CheckinCard extends Component {
 				<CardItem>
 					<Body>
 					<Text>
-						Brighton Beach is an oceanside neighborhood in the southern portion of the New York City borough
-						of Brooklyn, along the Coney Island peninsula.
+						{checkin.text}
 					</Text>
 					</Body>
 				</CardItem>
@@ -36,13 +38,14 @@ export default class CheckinCard extends Component {
 						<Left>
 							<Button transparent>
 								<Icon name="favorite-border" style={styles.icon}/>
-								<Text style={styles.text}>1,925</Text>
+								<Text style={styles.text}>{checkin.likes}</Text>
 							</Button>
 						</Left>
+
 						<Right>
 							<Button transparent>
 								<Icon name="share" style={styles.icon}/>
-								<Text style={styles.text}>1,925</Text>
+								<Text style={styles.text}>{checkin.reposts}</Text>
 							</Button>
 						</Right>
 					</CardItem>

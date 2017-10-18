@@ -9,10 +9,13 @@ export default class FriendsTab extends Component {
 		this.state = {
 			scrollY: new Animated.Value(0),
 		};
+		const coordinates = this.props.coordinates;
+		console.log('coordinates:',this.coordinates);
 	}
 
 	_renderScrollViewContent() {
 		const data = Array.from({length: 30});
+
 		return (
 			<View style={styles.scrollViewContent}>
 				<RecommendationsCardList/>
@@ -21,7 +24,9 @@ export default class FriendsTab extends Component {
 	}
 
 	render() {
+
 		return (
+
 			<Animated.ScrollView
 				style={styles.fill}
 				scrollEventThrottle={1}

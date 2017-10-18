@@ -13,12 +13,14 @@ export default class CheckinsPage extends Component {
 		this.state = {
 			scrollY: new Animated.Value(0),
 			isLoading: true,
+			isLoadingUser: true,
 			checkinsList: [],
+			user:[],
 		};
 	}
 
 	componentDidMount() {
-		return AsyncStorage.getItem('token', (err, result) => {
+		AsyncStorage.getItem('token', (err, result) => {
 			console.log('token from storage (for request):', result);
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + result)
 				.then((response) => response.json())
@@ -33,13 +35,30 @@ export default class CheckinsPage extends Component {
 					console.error(error);
 				});
 		});
+
+		AsyncStorage.getItem('token', (err, result) => {
+			console.log('token from storage (for request):', result);
+			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/user?token=' + result)
+				.then((response) => response.json())
+				.then(async (responseJson) => {
+					// await AsyncStorage.setItem('checkinsList', responseJson);
+					this.setState({
+						user: responseJson,
+						isLoadingUser: false,
+					})
+					console.log('user', this.state.user)
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		});
 	}
 
 
 	_renderScrollViewContent() {
 		console.log('try to prop checkins');
 		console.log(this.state.checkinsList);
-		if (this.state.isLoading) {
+		if (this.state.isLoading && this.state.isLoadingUser) {
 			return (
 				<View style={styles.scrollViewContent}>
 					<ActivityIndicator/>
@@ -95,8 +114,8 @@ export default class CheckinsPage extends Component {
 					]}>
 
 					<Image style={styles.circle}
-					       source={{uri: 'https://pp.userapi.com/c636330/v636330551/38cba/K6GgyC_wh3E.jpg'}}/>
-
+					       source={{uri: this.state.user.photo200}}/>
+					
 				</Animated.View>
 				<Animated.View
 					style={[
@@ -108,7 +127,7 @@ export default class CheckinsPage extends Component {
 							],
 						},
 					]}>
-					<Text style={styles.title}>Евфросиния Зерминова</Text>
+					<Text style={styles.title}>{this.state.user.firstName} {this.state.user.lastName}</Text>
 				</Animated.View>
 				<Fab
 					active={this.state.active}

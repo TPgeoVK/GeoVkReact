@@ -10,6 +10,7 @@ export default class CheckinCardList extends Component {
 		return (
 			<Content>
 				{checkins.map(checkin => (<CheckinCard key={checkin.checkinId} checkin={checkin}/>))}
+				{/*<CheckinCard checkin={checkins[1]}/>*/}
 			</Content>
 		);
 	}
