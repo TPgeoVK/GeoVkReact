@@ -16,9 +16,9 @@
     "test": "node node_modules/jest/bin/jest.js --watch",
     "avd-max": "~/Library/Android/sdk/emulator/emulator -avd Nexus_5_API_26",
     "avd-frr": "~/Library/Android/sdk/emulator/emulator -avd Nexus_5X_API_23",
-    "build-android": "./node_modules/.bin/exp build:android",
-    "build-ios": "./node_modules/.bin/exp build:ios",
-    "build-status": "./node_modules/.bin/exp build:status"
+    "build-android": "exp build:android",
+    "build-ios": "exp build:ios",
+    "build-status": "exp build:status"
   },
   "jest": {
     "preset": "jest-expo"
