@@ -22,7 +22,8 @@ export default class CheckinsPage extends Component {
 			console.log('token from storage (for request):', result);
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + result)
 				.then((response) => response.json())
-				.then((responseJson) => {
+				.then(async (responseJson) => {
+					// await AsyncStorage.setItem('checkinsList', responseJson);
 					this.setState({
 						checkinsList: responseJson,
 						isLoading: false,

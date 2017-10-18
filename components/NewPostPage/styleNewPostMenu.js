@@ -5,7 +5,8 @@ export default styles = {
 	},
 	input: {
 		borderWidth: 0,
-		fontSize: 30
+		fontSize: 30,
+		textAlignVertical: 'top'
 	}
 
 }
