@@ -4,6 +4,7 @@ import {Container, Content} from 'native-base';
 import AppHeader from '../Header/Header'
 import NewPostMenu from '../NewPostPage/NewPostMenu'
 import styles from './styleNewPostMenu'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
 export default class App extends Component {
@@ -11,6 +12,7 @@ export default class App extends Component {
 		return (
 			<Container>
 				<AppHeader/>
+				<KeyboardAwareScrollView>
 				<Content>
 					<TextInput multiline={true}
 					           autoFocus={true}
@@ -18,9 +20,11 @@ export default class App extends Component {
 					           numberOfLines={4}
 					           placeholder=" Where are you? What are you doing now?"
 					           style={styles.input}
-					           underlineColorAndroid='transparent'/>
+					           underlineColorAndroid='transparent'
+							  />
 				</Content>
 				<NewPostMenu navigation={this.props.navigation}/>
+				</KeyboardAwareScrollView>
 			</Container>
 		)
 	}
