@@ -59,11 +59,36 @@ export default styles = {
 		borderRadius: 150 / 2,
 	},
 
-	icon: {
+	fabIcon: {
 		color: '#fff'
 	},
 
 	fab: {
 		backgroundColor: '#6796CC'
+	},
+
+	card: {
+		flex: 0,
+		flexWrap: 'nowrap'
+	},
+
+	footer: {
+		borderTopWidth: 0.5,
+		borderTopColor: '#a7a8aa',
+	},
+
+	footerItem: {
+		height: 40
+	},
+
+	cardIcon: {
+		fontSize: 25,
+		color: '#a7a8aa',
+	},
+
+	text: {
+		fontSize: 15,
+		color: '#a7a8aa',
 	}
+
 }

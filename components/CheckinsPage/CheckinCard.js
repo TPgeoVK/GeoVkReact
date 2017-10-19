@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image, View} from 'react-native';
 import {Card, CardItem, Thumbnail, Text, Button, Left, Body, Right} from 'native-base';
-import styles from './styleCard'
+import styles from './styleCheckinsPage'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
@@ -40,14 +40,14 @@ export default class CheckinCard extends Component {
 					<CardItem style={styles.footerItem}>
 						<Left>
 							<Button transparent>
-								<Icon name="favorite-border" style={styles.icon}/>
+								<Icon name="favorite-border" style={styles.cardIcon}/>
 								<Text style={styles.text}>{checkin.likes}</Text>
 							</Button>
 						</Left>
 
 						<Right>
 							<Button transparent>
-								<Icon name="share" style={styles.icon}/>
+								<Icon name="share" style={styles.cardIcon}/>
 								<Text style={styles.text}>{checkin.reposts}</Text>
 							</Button>
 						</Right>

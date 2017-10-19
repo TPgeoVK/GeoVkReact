@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Image, Animated, Platform, StatusBar, StyleSheet, View, AsyncStorage, ActivityIndicator} from 'react-native';
-import {Fab, Text, Icon} from 'native-base';
+import {Image, Animated, Platform, StatusBar, StyleSheet, View, AsyncStorage, ActivityIndicator,Text} from 'react-native';
+import {Fab, Icon} from 'native-base';
 import CheckinCardList from './CheckinCardList';
 import styles from './styleCheckinsPage';
 import * as consts from './constantsCheckinsPage';
@@ -135,7 +135,7 @@ export default class CheckinsPage extends Component {
 					containerStyle={{}}
 					style={styles.fab}
 					position="bottomRight">
-					<Icon style={styles.icon} name="create"
+					<Icon style={styles.fabIcon} name="create"
 					      onPress={() => {
 						      this.props.navigation.navigate('NewPost')
 					      }}/>
