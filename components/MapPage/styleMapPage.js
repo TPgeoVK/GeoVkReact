@@ -9,5 +9,11 @@ export default styles = {
 		left: 0,
 		right: 0,
 		bottom: 0,
-	}
+	},
+
+	circle: {
+		width: 50,
+		height: 50,
+		borderRadius: 50 / 2,
+	},
 }

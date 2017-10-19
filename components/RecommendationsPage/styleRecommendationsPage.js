@@ -13,5 +13,9 @@ export default styles = {
 	},
 	textButton: {
 		fontSize: 12,
-	}
+	},
+	card: {
+		flex: 0,
+		flexWrap: 'nowrap'
+	},
 }

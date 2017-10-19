@@ -46,7 +46,7 @@ export default class CheckinsPage extends Component {
 						user: responseJson,
 						isLoadingUser: false,
 					})
-					console.log('user', this.state.user)
+					// console.log('user', this.state.user)
 				})
 				.catch((error) => {
 					console.error(error);
@@ -56,8 +56,8 @@ export default class CheckinsPage extends Component {
 
 
 	_renderScrollViewContent() {
-		console.log('try to prop checkins');
-		console.log(this.state.checkinsList);
+		// console.log('try to prop checkins');
+		// console.log(this.state.checkinsList);
 		if (this.state.isLoading && this.state.isLoadingUser) {
 			return (
 				<View style={styles.scrollViewContent}>
