@@ -97,7 +97,7 @@ export default class CheckinsPage extends Component {
 				<StatusBar
 					translucent
 					barStyle="light-content"
-					backgroundColor="rgba(0, 0, 255, 0.9)"/>
+					backgroundColor="#3d5f86"/>
 				<Animated.ScrollView
 					style={styles.fill}
 					scrollEventThrottle={1}
@@ -135,11 +135,11 @@ export default class CheckinsPage extends Component {
 					direction="up"
 					containerStyle={{}}
 					style={styles.fab}
-					position="bottomRight"
-					onPress={() => {
-						this.props.navigation.navigate('NewPost')
-					}}>
-					<Icon style={styles.fabIcon} name="create"/>
+					position="bottomRight">
+					<Icon style={styles.fabIcon} name="create"
+					      onPress={() => {
+						      this.props.navigation.navigate('NewPost')
+					      }}/>
 				</Fab>
 			</View>
 		);

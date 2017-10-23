@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {AppRegistry, Image, StyleSheet, View, AsyncStorage} from 'react-native';
+import {AppRegistry, Image, StyleSheet, View, AsyncStorage, StatusBar} from 'react-native';
 import MapView from 'react-native-maps';
-import styles from './styleMapPage'
-import Dimensions from 'Dimensions'
+import styles from './styleMapPage';
+import Dimensions from 'Dimensions';
+import AppHeader from '../Header/Header'
 
 const {width, height} = Dimensions.get('window');
 
@@ -36,44 +37,44 @@ export default class MapPage extends Component {
 
 	componentDidMount() {
 		navigator.geolocation.getCurrentPosition((position) => {
-			let lat = parseFloat(position.coords.latitude);
-			let long = parseFloat(position.coords.longitude);
-			let initialRegion = {
-				latitude: lat,
-				longitude: long,
-				latitudeDelta: LATITUDE_DELTA,
-				longitudeDelta: LONGITUDE_DELTA,
-			};
-			let initialMarker = {
-				latitude: lat,
-				longitude: long,
-			};
+				let lat = parseFloat(position.coords.latitude);
+				let long = parseFloat(position.coords.longitude);
+				let initialRegion = {
+					latitude: lat,
+					longitude: long,
+					latitudeDelta: LATITUDE_DELTA,
+					longitudeDelta: LONGITUDE_DELTA,
+				};
+				let initialMarker = {
+					latitude: lat,
+					longitude: long,
+				};
 
-			// this.setState({position: initialRegion});
-			// this.setState({markerPosition: initialRegion});
-			// console.log('1', this.state.markerPosition)
+				// this.setState({position: initialRegion});
+				// this.setState({markerPosition: initialRegion});
+				// console.log('1', this.state.markerPosition)
 
-			AsyncStorage.getItem('token', (err, result) => {
-				fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/latest?token=' + result + '&latitude=' + initialMarker.latitude + '&longitude=' + initialMarker.longitude)
-					.then((response) => response.json())
-					.then(async (responseJson) => {
-						this.setState({
-							markerPosition: initialMarker,
-							position: initialRegion,
-							markersCheckins: responseJson,
-							isLoading: false,
+				AsyncStorage.getItem('token', (err, result) => {
+					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/latest?token=' + result + '&latitude=' + initialMarker.latitude + '&longitude=' + initialMarker.longitude)
+						.then((response) => response.json())
+						.then(async (responseJson) => {
+							this.setState({
+								markerPosition: initialMarker,
+								position: initialRegion,
+								markersCheckins: responseJson,
+								isLoading: false,
+							});
+							console.log(this.state);
+						})
+						.catch((error) => {
+							console.error(error);
 						});
-						console.log(this.state);
-					})
-					.catch((error) => {
-						console.error(error);
-					});
-			});
-		}, (error) => {
-			console.log(error)
-		},
+				});
+			}, (error) => {
+				console.log(error)
+			},
 			// {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
-			);
+		);
 
 		this.watchID = navigator.geolocation.watchPosition((position) => {
 			let lat = parseFloat(position.coords.latitude);
@@ -126,6 +127,8 @@ export default class MapPage extends Component {
 			console.log(this.state.markerPosition)
 			return (
 				<View style={styles.container}>
+
+					<AppHeader title={'Те кто рядом'}/>
 					<MapView
 						region={this.state.position}
 						style={styles.map}>
@@ -137,29 +140,32 @@ export default class MapPage extends Component {
 			console.log('Loading!')
 			console.log(this.state.markersCheckins)
 			console.log(this.state.markerPosition)
-		return (
-			<View style={styles.container}>
-				<MapView
-					region={this.state.position}
-					style={styles.map}>
-					<MapView.Marker coordinate={this.state.markerPosition}/>
-					{this.state.markersCheckins.map(checkin => (
-						<MapView.Marker
-							key={checkin.checkinId}
-							coordinate={{
-								'latitude': checkin.place.latitude,
-								'longitude': checkin.place.longitude
-							}}
-							image={checkin.user.photo200}/>))}
-							{/*<Image*/}
-								{/*source={require({uri: checkin.user.photo200}})*/}
-								{/*style={styles.circle}*/}
-							{/*/>*/}
-						{/*</MapView.Marker>))*/}
+			return (
+				<View style={styles.container}>
 
-				</MapView>
-			</View>
-		);}
+					<AppHeader title={'Те кто рядом'}/>
+					<MapView
+						region={this.state.position}
+						style={styles.map}>
+						<MapView.Marker coordinate={this.state.markerPosition}/>
+						{this.state.markersCheckins.map(checkin => (
+							<MapView.Marker
+								key={checkin.checkinId}
+								coordinate={{
+									'latitude': checkin.place.latitude,
+									'longitude': checkin.place.longitude
+								}}
+								image={checkin.user.photo200}
+								>
+								{/*<Image*/}
+									{/*source={{uri: `data:image/png;base64,${checkin.user.photo200Base64}`}}*/}
+									{/*style={styles.circle}/>*/}
+							</MapView.Marker>
+						))}
+					</MapView>
+				</View>
+			);
+		}
 	}
 }
 

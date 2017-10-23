@@ -4,7 +4,7 @@ import styles from './styleHeader';
 export default class AppHeader extends Component {
 	render() {
 		return (
-			<Header>
+			<Header style={styles.header}>
 				<Body>
 				<Title style={styles.text}>{this.props.title}</Title>
 				</Body>

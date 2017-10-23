@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppRegistry, Image, StyleSheet, View, AsyncStorage} from 'react-native';
+import {AppRegistry, Image, StyleSheet, View, AsyncStorage, StatusBar} from 'react-native';
 import {Container, Tab, Tabs} from 'native-base';
 import AppHeader from '../Header/Header'
 import Friends from './FriendsTab';
@@ -72,7 +72,7 @@ export default class RecommendationsPage extends Component {
 	render() {
 		return (
 			<Container>
-				<AppHeader title={'Recommendations'}/>
+				<AppHeader title={'Рекомендации'}/>
 				<Tabs initialPage={0}>
 					<Tab
 						heading="Друзья">
