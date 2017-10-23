@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {TextInput, KeyboardAvoidingView} from 'react-native';
+import {TextInput, KeyboardAvoidingView, Text,AsyncStorage} from 'react-native';
 import {Container, Content} from 'native-base';
 import AppHeader from '../Header/Header'
 import NewPostMenu from '../NewPostPage/NewPostMenu'
@@ -7,14 +7,18 @@ import styles from './styleNewPostMenu'
 
 
 
-export default class App extends Component {
+export default class NewPostPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			isLoading: true,
-			recomendationsList: [],
+			place: {
+				title:'',
+			},
+			text: '',
 		};
 	}
+
 	watchID: ?number = null;
 
 	componentDidMount() {
@@ -36,36 +40,41 @@ export default class App extends Component {
 		this.watchID = navigator.geolocation.watchPosition((position) => {
 			let lat = parseFloat(position.coords.latitude);
 			let long = parseFloat(position.coords.longitude);
-			console.log('coordinates22:',lat,long )
 			AsyncStorage.multiSet([
 				["latitude", lat.toString()],
 				["longitude", long.toString()]
 			])
 		});
 
-		AsyncStorage.multiGet([ 'token','latitude', 'longitude']).then((data) => {
-			let token = data[0][1];
-			let latitude = data[1][1];
-			let longitude = data[2][1];
-			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/event/byFriends?token=' + token + '&latitude=' + latitude + '&longitude=' + longitude)
-				.then((response) => response.json())
-				.then(async (responseJson) => {
-					this.setState({
-						recomendationsList: responseJson,
-						isLoading: false,
-					})
-					console.log('rec',this.state.recomendationsList);
-				})
-				.catch((error) => {
-					console.error(error); });
-		});
+
 	}
+
 
 
 	componentWillMount() {
 		navigator.geolocation.clearWatch(this.watchID)
 	}
 
+	_onChangeText = async(text) => {
+		this.setState({text});
+		AsyncStorage.multiGet([ 'token','latitude', 'longitude']).then((data) => {
+			let token = data[0][1];
+			let latitude = data[1][1];
+			let longitude = data[2][1];
+			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/loaction/detectPlace?token=' + token + '&latitude=' + latitude + '&longitude=' + longitude + '&text=' + this.state.text)
+				.then((response) => response.json())
+				.then(async (responseJson) => {
+					this.setState({
+						place: responseJson,
+						isLoading: false,
+					})
+					console.log('place', this.state.place)
+					console.log('text', this.state.text)
+				})
+				.catch((error) => {
+					console.error(error); });
+		});
+	}
 
 
 	render() {
@@ -80,9 +89,11 @@ export default class App extends Component {
 					           placeholder="Где Вы? Что сейчас делаете?"
 					           style={styles.input}
 					           underlineColorAndroid='transparent'
-							  />
+					           onChangeText={(text) => this._onChangeText(text)}
+					          />
 				</Content>
 			<KeyboardAvoidingView>
+				<Text>{this.state.place.title}</Text>
 				<NewPostMenu navigation={this.props.navigation}/>
 			</KeyboardAvoidingView>
 			</Container>
