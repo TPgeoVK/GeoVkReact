@@ -30,6 +30,7 @@ export default class CheckinsPage extends Component {
 						checkinsList: responseJson,
 						isLoading: false,
 					})
+					console.log(responseJson)
 				})
 				.catch((error) => {
 					console.error(error);
@@ -134,11 +135,11 @@ export default class CheckinsPage extends Component {
 					direction="up"
 					containerStyle={{}}
 					style={styles.fab}
-					position="bottomRight">
-					<Icon style={styles.fabIcon} name="create"
-					      onPress={() => {
-						      this.props.navigation.navigate('NewPost')
-					      }}/>
+					position="bottomRight"
+					onPress={() => {
+						this.props.navigation.navigate('NewPost')
+					}}>
+					<Icon style={styles.fabIcon} name="create"/>
 				</Fab>
 			</View>
 		);

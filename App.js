@@ -17,16 +17,16 @@ export default class App extends Component {
 	}
 
 	async componentWillMount() {
-		await Expo.Font.loadAsync({
-			Roboto: require("native-base/Fonts/Roboto.ttf"),
-			Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
-			Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
-		});
+		// await Expo.Font.loadAsync({
+		// 	Roboto: require("native-base/Fonts/Roboto.ttf"),
+		// 	Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+		// 	Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
+		// });
 
 		const token = await AsyncStorage.getItem('token');
 		if (token !== null) {
 			console.log('check token to bmstu:', token);
-			await fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + token)
+			await fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/user?token=' + token)
 				.then((response) => response.json())
 				.then((responseJson) => {
 					if (!responseJson['error'])
@@ -43,9 +43,9 @@ export default class App extends Component {
 
 
 	render() {
-		if (!this.state.isReady) {
-			return <Expo.AppLoading/>;
-		}
+		// if (!this.state.isReady) {
+		// 	return <Expo.AppLoading/>;
+		// }
 		console.log('validtoken?:', this.state.isValidToken);
 		if (this.state.isValidToken) {
 			return (

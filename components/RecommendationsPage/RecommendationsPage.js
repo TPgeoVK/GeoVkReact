@@ -31,11 +31,14 @@ export default class RecommendationsPage extends Component {
 				])
 			},
 			(error)=>{console.log(error)},
-			{enableHighAccuracy:true,timeout:20000,maximumAge:1000})
+			// {enableHighAccuracy:true,timeout:20000,maximumAge:1000}
+			)
+
 
 		this.watchID = navigator.geolocation.watchPosition((position) => {
 			let lat = parseFloat(position.coords.latitude);
 			let long = parseFloat(position.coords.longitude);
+			console.log('coordinates22:',lat,long )
 			AsyncStorage.multiSet([
 				["latitude", lat.toString()],
 				["longitude", long.toString()]
@@ -72,12 +75,12 @@ export default class RecommendationsPage extends Component {
 				<AppHeader title={'Recommendations'}/>
 				<Tabs initialPage={0}>
 					<Tab
-						heading="Friends">
+						heading="Друзья">
 						<Friends coordinates={this.state.initialPosition}/>
 					</Tab>
 
 					<Tab
-						heading="Communities">
+						heading="Сообщества">
 						<Communities coordinates={this.state.initialPosition}/>
 					</Tab>
 				</Tabs>

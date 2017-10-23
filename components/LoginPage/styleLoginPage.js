@@ -8,6 +8,7 @@ export default styles = {
 
 	image: {
 		height: 50,
+		width: 202,
 		marginTop: 250,
 	},
 

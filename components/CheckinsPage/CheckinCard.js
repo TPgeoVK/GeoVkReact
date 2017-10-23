@@ -18,8 +18,8 @@ export default class CheckinCard extends Component {
 				<CardItem>
 					<Left>
 
-						{/*<Thumbnail*/}
-						{/*source={{uri: checkin.place.placeIcon}}/>*/}
+						<Thumbnail
+						source={{uri: checkin.place.placeIcon}}/>
 						<Body>
 						<Text>{checkin.place.title}</Text>
 						<Text
