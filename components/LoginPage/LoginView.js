@@ -16,11 +16,16 @@ export default class LoginView extends Component {
 
 	_onNavigationStateChange = async (webViewState) => {
 		const parsedUrl = url.parse(webViewState.url)
-		if (parsedUrl.search !== null && !isLogged) {
-			if (parsedUrl.search.indexOf('error') >= 0) {
+		console.log('parsedUrl',parsedUrl)
+		if (parsedUrl.hash !== null && !isLogged) {
+			if (parsedUrl.hash.indexOf('error') >= 0) {
 				this.props.navigation.goBack();
-			} else if (parsedUrl.search.indexOf('token=') >= 0) {
-				const token = parsedUrl.search.slice(7,);
+			} else if (parsedUrl.hash.indexOf('access_token=') >= 0) {
+				urlHash = parsedUrl.hash.slice(1,).split("&").map( el => el.split("=") )
+					.reduce( (pre, cur) => { pre[cur[0]] = cur[1]; return pre; }, {} );
+
+				console.log('parsedUrl.hash.slice(7,)',urlHash.access_token)
+				const token = urlHash.access_token;
 				await AsyncStorage.setItem('token', token);
 				this.props.navigation.dispatch(NavigationActions.reset(
 					{
@@ -31,6 +36,19 @@ export default class LoginView extends Component {
 					}
 				));
 				isLogged = true;
+				fetch('http://tp2017.park.bmstu.cloud/tpgeovk/auth/login', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						token: token,
+					})
+
+				})
+				console.log('auth/login',token)
+
+
 			}
 		}
 
