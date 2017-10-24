@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {AppRegistry, Image, StyleSheet, View, AsyncStorage, StatusBar} from 'react-native';
+import {AppRegistry, Image, StyleSheet, View, AsyncStorage, StatusBar,Button, Linking} from 'react-native';
+import { Text, Fab} from 'native-base';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
 import styles from './styleMapPage';
 import Dimensions from 'Dimensions';
@@ -145,6 +147,7 @@ export default class MapPage extends Component {
 
 					<AppHeader title={'Те кто рядом'}/>
 					<MapView
+						ref="map"
 						region={this.state.position}
 						style={styles.map}>
 						<MapView.Marker coordinate={this.state.markerPosition}/>
@@ -158,11 +161,34 @@ export default class MapPage extends Component {
 								image={checkin.user.photo200}
 								>
 								{/*<Image*/}
-									{/*source={{uri: `data:image/png;base64,${checkin.user.photo200Base64}`}}*/}
-									{/*style={styles.circle}/>*/}
+								{/*source={{uri: `data:image/png;base64,${checkin.user.photo200Base64}`}}*/}
+								{/*style={styles.circle}/>*/}
+								<MapView.Callout onPress={() =>
+								{Linking.openURL(`https://vk.com/id${checkin.user.id}`)
+										.catch(err => console.error('An error occurred', err));
+									console.log(`https://vk.com/id${checkin.user.id}`)}}>
+									<View style={styles.callout}>
+										<Text>{checkin.user.firstName} {checkin.user.lastName }</Text>
+										<Text note>{(checkin.text).slice(0,40)}...</Text>
+										<Button color={'#6796CC'} title='Посмотреть' onPress={() => {}}/>
+									</View>
+								</MapView.Callout>
+
+
 							</MapView.Marker>
 						))}
+
 					</MapView>
+					<Fab
+						active={this.state.active}
+						direction="up"
+						containerStyle={{}}
+						style={styles.fab}
+						position="bottomRight">
+						<Icon style={styles.fabIcon} name="my-location"
+						      onPress={() => {
+							      this.refs.map.animateToRegion(this.state.position)}}/>
+					</Fab>
 				</View>
 			);
 		}

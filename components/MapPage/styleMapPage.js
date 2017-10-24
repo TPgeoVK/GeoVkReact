@@ -16,4 +16,15 @@ export default styles = {
 		height: 50,
 		borderRadius: 50 / 2,
 	},
+
+	callout: {
+		width: 200,
+	},
+	fabIcon: {
+		color: '#fff'
+	},
+
+	fab: {
+		backgroundColor: '#6796CC'
+	},
 }

@@ -15,7 +15,10 @@ import NewPost from '../NewPostPage/NewPostPage'
 import styles from './styleMenu'
 
 
+
 const Menu = ({navigation, activeTabName}) => {
+
+
 	const {routes} = navigation.state;
 	return (
 		<Footer>
@@ -39,6 +42,14 @@ const Menu = ({navigation, activeTabName}) => {
 				        onPress={() => navigation.navigate('Recommendations')}>
 					<Icon style={(activeTabName == 'Recommendations' ) ? styles.activeIcon : styles.icon}
 					      name="search"/>
+				</Button>
+				<Button vertical
+				        title={"Exit"}
+				        // onPress={() => this._logOut()} //TODO
+				>
+
+					<Icon style={(activeTabName == 'LogOut' ) ? styles.activeIcon : styles.icon}
+					      name="exit-to-app"/>
 				</Button>
 			</FooterTab>
 		</Footer>

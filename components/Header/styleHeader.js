@@ -3,6 +3,6 @@ export default styles = {
 		color: '#fff'
 	},
 	header: {
-		height: 65,
+		height: 60,
 	}
 }

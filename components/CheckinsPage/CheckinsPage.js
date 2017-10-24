@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Image, Animated, Platform, StatusBar, StyleSheet, View, AsyncStorage, ActivityIndicator,Text} from 'react-native';
-import {Fab, Icon} from 'native-base';
+import {Fab} from 'native-base';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import CheckinCardList from './CheckinCardList';
 import styles from './styleCheckinsPage';
 import * as consts from './constantsCheckinsPage';

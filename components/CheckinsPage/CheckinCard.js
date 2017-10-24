@@ -22,8 +22,7 @@ export default class CheckinCard extends Component {
 						source={{uri: checkin.place.placeIcon}}/>
 						<Body>
 						<Text>{checkin.place.title}</Text>
-						<Text
-							note>{date.getDate()} {months[month]} {date.getFullYear()}</Text>
+						<Text note>{date.getDate()} {months[month]} {date.getFullYear()}</Text>
 						</Body>
 					</Left>
 				</CardItem>
