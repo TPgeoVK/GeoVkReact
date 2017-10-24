@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {AppRegistry, Image, StyleSheet, View, AsyncStorage, StatusBar} from 'react-native';
+import {AppRegistry, Image, StyleSheet, View, AsyncStorage, StatusBar,ActivityIndicator} from 'react-native';
 import {Container, Tab, Tabs} from 'native-base';
 import AppHeader from '../Header/Header'
-import Friends from './FriendsTab';
-import Communities from './CommunitiesTab';
+import FriendsTab from './FriendsTab';
+import CommunitiesTab from './CommunitiesTab';
 
 
 
@@ -14,7 +14,7 @@ export default class RecommendationsPage extends Component {
 		super(props);
 		this.state = {
 			isLoading: true,
-			recomendationsList: [],
+			recommendationsList: [],
 		};
 	}
 	watchID: ?number = null;
@@ -23,8 +23,6 @@ export default class RecommendationsPage extends Component {
 		navigator.geolocation.getCurrentPosition((position) => {
 				let lat = parseFloat(position.coords.latitude);
 				let long = parseFloat(position.coords.longitude);
-
-				console.log('coordinates:',lat,long )
 				AsyncStorage.multiSet([
 					["latitude", lat.toString()],
 					["longitude", long.toString()]
@@ -38,7 +36,6 @@ export default class RecommendationsPage extends Component {
 		this.watchID = navigator.geolocation.watchPosition((position) => {
 			let lat = parseFloat(position.coords.latitude);
 			let long = parseFloat(position.coords.longitude);
-			console.log('coordinates22:',lat,long )
 			AsyncStorage.multiSet([
 				["latitude", lat.toString()],
 				["longitude", long.toString()]
@@ -49,14 +46,14 @@ export default class RecommendationsPage extends Component {
 			let token = data[0][1];
 			let latitude = data[1][1];
 			let longitude = data[2][1];
-			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/event/byFriends?token=' + token + '&latitude=' + latitude + '&longitude=' + longitude)
+			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/friends/byCheckins?token=' + token)
 				.then((response) => response.json())
 				.then(async (responseJson) => {
 					this.setState({
-						recomendationsList: responseJson,
+						recommendationsList: responseJson,
 						isLoading: false,
 					})
-					console.log('rec',this.state.recomendationsList);
+					console.log('rec',this.state.recommendationsList);
 				})
 				.catch((error) => {
 					console.error(error); });
@@ -68,22 +65,36 @@ export default class RecommendationsPage extends Component {
 		navigator.geolocation.clearWatch(this.watchID)
 	}
 
+	_renderContent() {
+		if (this.state.isLoading) {
+			return (
+				<View style={styles.scrollViewContent}>
+					<ActivityIndicator/>
+				</View>
+			);
+		}
+		return (
+			<Tabs initialPage={0}>
+				<Tab
+					heading="Друзья">
+					<FriendsTab recommendationsList={this.state.recommendationsList}/>
+				</Tab>
+
+				<Tab
+					heading="Сообщества">
+					<CommunitiesTab/>
+				</Tab>
+			</Tabs>
+		);
+
+	}
 
 	render() {
+		console.log('!!',this.state.recommendationsList);
 		return (
 			<Container>
 				<AppHeader title={'Рекомендации'}/>
-				<Tabs initialPage={0}>
-					<Tab
-						heading="Друзья">
-						<Friends coordinates={this.state.initialPosition}/>
-					</Tab>
-
-					<Tab
-						heading="Сообщества">
-						<Communities coordinates={this.state.initialPosition}/>
-					</Tab>
-				</Tabs>
+				{this._renderContent()}
 			</Container>
 		);
 	}

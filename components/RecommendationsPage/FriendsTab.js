@@ -8,17 +8,18 @@ export default class FriendsTab extends Component {
 
 		this.state = {
 			scrollY: new Animated.Value(0),
+			recommendationsList: this.props.recommendationsList,
 		};
-		const coordinates = this.props.coordinates;
-		console.log('coordinates:',this.coordinates);
+
+		console.log(this.props)
+
 	}
 
 	_renderScrollViewContent() {
 		const data = Array.from({length: 30});
-
 		return (
 			<View style={styles.scrollViewContent}>
-				<RecommendationsCardList/>
+				<RecommendationsCardList recommendations={this.state.recommendationsList}/>
 			</View>
 		);
 	}

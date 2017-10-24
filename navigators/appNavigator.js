@@ -4,7 +4,7 @@ import {
 	createNavigationContainer,
 	TabRouter,
 	addNavigationHelpers,
-	StackNavigator
+	StackNavigator,NavigationActions
 } from 'react-navigation';
 import {Container, Footer, FooterTab, Button,} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -13,13 +13,26 @@ import RecommendationsPage from '../components/RecommendationsPage/Recommendatio
 import MapPage from '../components/MapPage/MapPage'
 import NewPost from '../components/NewPostPage/NewPostPage'
 import Menu from '../components/Menu/Menu'
+import LoginNavigator from './loginNavigator'
 
 
 const CustomTabView = ({router, navigation}) => {
 	const {routes, index} = navigation.state;
 	const ActiveScreen = router.getComponentForRouteName(routes[index].routeName);
 	const ActiveTab = routes[index].routeName
-	return (
+	if (ActiveTab !== 'Login') {
+		return (
+			<Container>
+				<ActiveScreen
+					navigation={addNavigationHelpers({
+						...navigation,
+						state: routes[index],
+					})}
+				/>
+				<Menu navigation={navigation} activeTabName={ActiveTab}/>
+			</Container>
+		);
+	} return (
 		<Container>
 			<ActiveScreen
 				navigation={addNavigationHelpers({
@@ -27,9 +40,10 @@ const CustomTabView = ({router, navigation}) => {
 					state: routes[index],
 				})}
 			/>
-			<Menu navigation={navigation} activeTabName={ActiveTab}/>
+
 		</Container>
 	);
+
 };
 
 const RecommendationsScreen = ({navigation}) => (
@@ -43,6 +57,7 @@ const CheckinsScreen = ({navigation}) => (
 const MapScreen = ({navigation}) => (
 	<MapPage navigation={navigation}/>
 );
+
 
 
 const CustomTabRouter = TabRouter(
@@ -60,6 +75,11 @@ const CustomTabRouter = TabRouter(
 			screen: RecommendationsScreen,
 			path: 'Recommendations',
 		},
+		// Login: {
+		// 	screen: ({ navigation }) => <LoginNavigator screenProps={{ rootNavigation: navigation }} />
+		//
+		// }
+
 	},
 	{
 		initialRouteName: 'Checkins',

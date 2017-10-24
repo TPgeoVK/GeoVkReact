@@ -18,7 +18,7 @@ export default class CommunitiesTab extends Component {
 
 		return (
 			<View style={styles.scrollViewContent}>
-				<RecommendationsCardList/>
+				{/*<RecommendationsCardList/>*/}
 			</View>
 		);
 	}

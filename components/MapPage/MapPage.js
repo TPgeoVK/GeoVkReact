@@ -123,7 +123,7 @@ export default class MapPage extends Component {
 
 
 	render() {
-		if (this.state.isLoading) {
+		if (this.state.isLoading || this.state.markersCheckins==[]) {
 			console.log('!!!!')
 			console.log(this.state.markersCheckins)
 			console.log(this.state.markerPosition)

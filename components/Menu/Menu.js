@@ -4,8 +4,7 @@ import {
 	createNavigationContainer,
 	TabRouter,
 	addNavigationHelpers,
-	StackNavigator
-} from 'react-navigation';
+	StackNavigator, AsyncStorage } from 'react-navigation';
 import {Container, Footer, FooterTab, Button,} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CheckinsPage from '../CheckinsPage/CheckinsPage'
@@ -14,10 +13,29 @@ import MapPage from '../MapPage/MapPage'
 import NewPost from '../NewPostPage/NewPostPage'
 import styles from './styleMenu'
 
+import {NavigationActions} from 'react-navigation';
+
 
 
 const Menu = ({navigation, activeTabName}) => {
 
+	const _logOut = async () => {
+
+		// await AsyncStorage.getItem('token', (err, result) => {
+		// 	fetch('http://tp2017.park.bmstu.cloud/tpgeovk/auth/login', {
+		// 		method: 'POST',
+		// 		headers: {
+		// 			'Content-Type': 'application/json',
+		// 		},
+		// 		body: JSON.stringify({
+		// 			token: result,
+		// 		})
+		// 	})
+		// }, (error) => {
+		// 	console.log(error)
+		// },);
+		// AsyncStorage.clear();
+	}
 
 	const {routes} = navigation.state;
 	return (
@@ -43,14 +61,17 @@ const Menu = ({navigation, activeTabName}) => {
 					<Icon style={(activeTabName == 'Recommendations' ) ? styles.activeIcon : styles.icon}
 					      name="search"/>
 				</Button>
-				<Button vertical
-				        title={"Exit"}
-				        // onPress={() => this._logOut()} //TODO
-				>
+				{/*<Button vertical*/}
+				        {/*title={"logOut"}*/}
+				        {/*onPress={() =>{*/}
+					        {/*navigation.navigate('Login');*/}
+					        {/*_logOut()*/}
+				        {/*} } //TODO*/}
+				{/*>*/}
 
-					<Icon style={(activeTabName == 'LogOut' ) ? styles.activeIcon : styles.icon}
-					      name="exit-to-app"/>
-				</Button>
+					{/*<Icon style={(activeTabName == 'LogOut' ) ? styles.activeIcon : styles.icon}*/}
+					      {/*name="exit-to-app"/>*/}
+				{/*</Button>*/}
 			</FooterTab>
 		</Footer>
 	);

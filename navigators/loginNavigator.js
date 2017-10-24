@@ -1,5 +1,5 @@
-import LoginPage from '../components/LoginPage/LoginPage/';
-import LoginView from '../components/LoginPage/LoginView/';
+import LoginPage from '../components/LoginPage/LoginPage';
+import LoginView from '../components/LoginPage/LoginView';
 import Root from './appNavigator';
 import {
 	createNavigator,

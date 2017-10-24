@@ -3,7 +3,7 @@ import {AppRegistry, Image, StyleSheet, View, WebView,StatusBar} from 'react-nat
 import {Container, Button, Text} from 'native-base';
 import styles from './styleLoginPage'
 import LoginView from './LoginView'
-
+import {NavigationActions} from 'react-navigation';
 
 export default class LoginPage extends Component {
 
