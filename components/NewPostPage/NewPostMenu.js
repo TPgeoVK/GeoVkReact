@@ -1,33 +1,45 @@
 import React, {Component} from 'react';
-import {Footer, FooterTab, Button, AsyncStorage} from 'native-base';
+import {Footer, FooterTab, Button} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styleNewPostMenu'
+import {AsyncStorage} from 'react-native';
+
 
 
 export default class NewPostMenu extends Component {
-	_onPress = async(text) => {
-		this.setState({text});
-		console.log('text', text);
-		AsyncStorage.multiGet([ 'token','postText', 'place']).then((data) => {
-			let token = data[0][1];
-			let text = data[1][1];
-			let place = data[2][1];
+	constructor(props) {
+		super(props);
+		this.state = {
 
+		};
+	}
+
+	_onPress = async() => {
+
+		console.log('text', this.props.text);
+		console.log('placeid', this.props.place.id);
+		AsyncStorage.getItem('token', (err, result) => {
 			//TODO
-			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/location/detectPlace', {
+			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/post/create', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					token: token,
-					text: text,
-					place: place,
+					token: result,
+					text: this.props.text,
+					placeId: this.props.place.id,
 				})
-			}).catch((error) => {
+			}).then((response) => response.json())
+				.then(async (responseJson) => {
+					console.log('post', responseJson)
+				})
+				.catch((error) => {
 					console.error(error); });
 
 		});
+		this.props.navigation.goBack();
+		//TODO
 	}
 
 	render() {

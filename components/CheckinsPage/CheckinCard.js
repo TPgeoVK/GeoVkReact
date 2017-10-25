@@ -9,7 +9,7 @@ export default class CheckinCard extends Component {
 	render() {
 
 		const checkin = this.props.checkin;
-		console.log('checkin card', checkin)
+		//console.log('checkin card', checkin)
 		const date = new Date(parseInt(checkin.date) * 1000);
 		const month = date.getMonth();
 		const months = ["янв", "фев", "мар", "апр", "май", "июн",

@@ -3,7 +3,7 @@ import {Image, View, Linking} from 'react-native';
 import styles from './styleRecommendationsPage'
 import {Card, CardItem, Thumbnail, Text, Button, Left, Body, Right} from 'native-base';
 
-export default class RecommendationsCard extends Component {
+export default class RecommendationsCardFriends extends Component {
 
 	render() {
 		const recommendation = this.props.recommendation;
@@ -16,7 +16,7 @@ export default class RecommendationsCard extends Component {
 						<Thumbnail source={{uri: recommendation.photo200}}/>
 						<Body>
 						<Text style={styles.text}>{name}</Text>
-						<Text note style={styles.textNote}>МГТУ им. Баумана</Text>
+						<Text note style={styles.textNote}>{recommendation.occupation}</Text>
 						</Body>
 					</Left>
 					<Right>

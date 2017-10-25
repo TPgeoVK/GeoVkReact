@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {Image, View} from 'react-native';
 import {Content,Text} from 'native-base';
-import RecommendationsCard from './RecommendationsCard'
+import RecommendationsCardGroups from './RecommendationsCardGroups'
 
-export default class RecommendationsCardList extends Component {
+export default class RecommendationsCardListGroups extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -24,7 +24,7 @@ export default class RecommendationsCardList extends Component {
 		}
 		return (
 			<Content>
-				{this.state.recommendations.map(recommendation => (<RecommendationsCard key={recommendation.id} recommendation={recommendation}/>))}
+				{this.state.recommendations.map(recommendation => (<RecommendationsCardGroups key={recommendation.id} recommendation={recommendation}/>))}
 			</Content>
 		);
 	}

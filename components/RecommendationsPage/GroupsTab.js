@@ -1,24 +1,25 @@
 import React, {Component} from 'react';
-import {AppRegistry, Image, StyleSheet, View, Animated} from 'react-native';
-import RecommendationsCardList from './RecommendationsCardList'
+import {Image, Animated, Platform, StatusBar, StyleSheet, View,} from 'react-native';
+import RecommendationsCardListGroups from './RecommendationsCardListGroups'
 
-export default class CommunitiesTab extends Component {
+export default class GroupsTab extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			scrollY: new Animated.Value(0),
+			recommendationsList: this.props.recommendationsList,
 		};
-		const coordinates = this.props.coordinates;
-		console.log('coordinates:',this.coordinates);
+
+		console.log(this.props)
+
 	}
 
 	_renderScrollViewContent() {
 		const data = Array.from({length: 30});
-
 		return (
 			<View style={styles.scrollViewContent}>
-				{/*<RecommendationsCardList/>*/}
+				<RecommendationsCardListGroups recommendations={this.state.recommendationsList}/>
 			</View>
 		);
 	}
@@ -40,6 +41,4 @@ export default class CommunitiesTab extends Component {
 		);
 	}
 }
-
-
 

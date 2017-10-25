@@ -59,7 +59,8 @@ export default class CheckinsPage extends Component {
 	_renderScrollViewContent() {
 		// console.log('try to prop checkins');
 		 console.log('render',this.state.checkinsList);
-		if (this.state.isLoading && this.state.isLoadingUser) {
+		 console.log('render',this.state.checkinsList.error);
+		if ((this.state.isLoadingFriends && this.state.isLoadingUser) && ('error' in this.state.checkinsList)) {
 			return (
 				<View style={styles.scrollViewContent}>
 					<ActivityIndicator/>

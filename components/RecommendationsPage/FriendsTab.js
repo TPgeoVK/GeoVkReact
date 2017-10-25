@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Image, Animated, Platform, StatusBar, StyleSheet, View,} from 'react-native';
-import RecommendationsCardList from './RecommendationsCardList'
+import RecommendationsCardListFriends from './RecommendationsCardListFriends'
 
 export default class FriendsTab extends Component {
 	constructor(props) {
@@ -19,7 +19,7 @@ export default class FriendsTab extends Component {
 		const data = Array.from({length: 30});
 		return (
 			<View style={styles.scrollViewContent}>
-				<RecommendationsCardList recommendations={this.state.recommendationsList}/>
+				<RecommendationsCardListFriends recommendations={this.state.recommendationsList}/>
 			</View>
 		);
 	}

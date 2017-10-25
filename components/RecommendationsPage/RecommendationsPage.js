@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
-import {AppRegistry, Image, StyleSheet, View, AsyncStorage, StatusBar,ActivityIndicator} from 'react-native';
+import {AppRegistry, Image, StyleSheet, View, AsyncStorage, StatusBar, ActivityIndicator} from 'react-native';
 import {Container, Tab, Tabs} from 'native-base';
 import AppHeader from '../Header/Header'
 import FriendsTab from './FriendsTab';
-import CommunitiesTab from './CommunitiesTab';
-
-
+import GroupsTab from './GroupsTab';
 
 
 export default class RecommendationsPage extends Component {
@@ -13,10 +11,13 @@ export default class RecommendationsPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isLoading: true,
-			recommendationsList: [],
+			isLoadingFriends: true,
+			isLoadingGroups: true,
+			recommendationsListFriends: [],
+			recommendationsListGroups: [],
 		};
 	}
+
 	watchID: ?number = null;
 
 	componentDidMount() {
@@ -28,9 +29,11 @@ export default class RecommendationsPage extends Component {
 					["longitude", long.toString()]
 				])
 			},
-			(error)=>{console.log(error)},
+			(error) => {
+				console.log(error)
+			},
 			// {enableHighAccuracy:true,timeout:20000,maximumAge:1000}
-			)
+		)
 
 
 		this.watchID = navigator.geolocation.watchPosition((position) => {
@@ -42,7 +45,7 @@ export default class RecommendationsPage extends Component {
 			])
 		});
 
-		AsyncStorage.multiGet([ 'token','latitude', 'longitude']).then((data) => {
+		AsyncStorage.multiGet(['token', 'latitude', 'longitude']).then((data) => {
 			let token = data[0][1];
 			let latitude = data[1][1];
 			let longitude = data[2][1];
@@ -50,15 +53,35 @@ export default class RecommendationsPage extends Component {
 				.then((response) => response.json())
 				.then(async (responseJson) => {
 					this.setState({
-						recommendationsList: responseJson,
-						isLoading: false,
+						recommendationsListFriends: responseJson,
+						isLoadingFriends: false,
 					})
-					console.log('rec',this.state.recommendationsList);
+					console.log('recfr', this.state.recommendationsListFriends);
 				})
 				.catch((error) => {
-					console.error(error); });
+					console.error(error);
+				});
 		});
-}
+
+		AsyncStorage.multiGet(['token', 'latitude', 'longitude']).then((data) => {
+			let token = data[0][1];
+			let latitude = data[1][1];
+			let longitude = data[2][1];
+			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/groups?token=' + token)
+				.then((response) => response.json())
+				.then(async (responseJson) => {
+					this.setState({
+						recommendationsListGroups: responseJson,
+						isLoadingGroups: false,
+					})
+					console.log('recgr', responseJson,this.state.recommendationsListGroups);
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		});
+
+	}
 
 
 	componentWillMount() {
@@ -66,7 +89,7 @@ export default class RecommendationsPage extends Component {
 	}
 
 	_renderContent() {
-		if (this.state.isLoading) {
+		if (this.state.isLoadingFriends) {
 			return (
 				<View style={styles.scrollViewContent}>
 					<ActivityIndicator/>
@@ -74,15 +97,15 @@ export default class RecommendationsPage extends Component {
 			);
 		}
 		return (
-			<Tabs initialPage={0}>
+			<Tabs initialPage={1}>
 				<Tab
 					heading="Друзья">
-					<FriendsTab recommendationsList={this.state.recommendationsList}/>
+					<FriendsTab recommendationsList={this.state.recommendationsListFriends}/>
 				</Tab>
 
 				<Tab
 					heading="Сообщества">
-					<CommunitiesTab/>
+					<GroupsTab recommendationsList={this.state.recommendationsListGroups}/>
 				</Tab>
 			</Tabs>
 		);
@@ -90,7 +113,7 @@ export default class RecommendationsPage extends Component {
 	}
 
 	render() {
-		console.log('!!',this.state.recommendationsList);
+		console.log('!!', this.state.recommendationsList);
 		return (
 			<Container>
 				<AppHeader title={'Рекомендации'}/>
