@@ -4,11 +4,18 @@ import {Content} from 'native-base';
 import CheckinCard from './CheckinCard'
 
 export default class CheckinCardList extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			checkins: this.props.checkins,
+		};
+		console.log(this.props)
+	}
 	render() {
-		const checkins = this.props.checkins;
-		//console.log('CheckinCardList', checkins)
 
-		if (checkins.length === 0) {
+//TODO
+	console.log(this.state.checkins)
+		if (this.state.checkins === []) {
 			return (
 				<Content>
 					<Text>Вы пока нигде не отметелись(((</Text>
@@ -17,7 +24,7 @@ export default class CheckinCardList extends Component {
 		}
 		return (
 			<Content>
-				{checkins.map(checkin => (<CheckinCard key={checkin.checkinId} checkin={checkin}/>))}
+				{this.state.checkins.map(checkin => (<CheckinCard key={checkin.checkinId} checkin={checkin}/>))}
 				{/*<CheckinCard checkin={checkins[1]}/>*/}
 			</Content>
 		);

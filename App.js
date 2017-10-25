@@ -16,6 +16,41 @@ export default class App extends Component {
 		};
 	}
 
+	componentDidMount() {
+		navigator.geolocation.getCurrentPosition((position) => {
+				let lat = parseFloat(position.coords.latitude);
+				let long = parseFloat(position.coords.longitude);
+				AsyncStorage.multiSet([
+					["latitude", lat.toString()],
+					["longitude", long.toString()]
+				])
+			},
+			(error)=>{console.log(error)},
+			// {enableHighAccuracy:true,timeout:20000,maximumAge:1000}
+		)
+
+
+		this.watchID = navigator.geolocation.watchPosition((position) => {
+			let lat = parseFloat(position.coords.latitude);
+			let long = parseFloat(position.coords.longitude);
+			AsyncStorage.multiSet([
+				["latitude", lat.toString()],
+				["longitude", long.toString()]
+			])
+		});
+
+		AsyncStorage.multiGet([ 'token','latitude', 'longitude']).then((data) => {
+			let token = data[0][1];
+			let latitude = data[1][1];
+			let longitude = data[2][1];
+			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/trigger?token=' + token + '&latitude' + latitude + '&longitude' + longitude)
+				.then((response) => response.json())
+				.catch((error) => {
+					console.error(error); });
+		});
+	}
+
+
 	async componentWillMount() {
 		// await Expo.Font.loadAsync({
 		// 	Roboto: require("native-base/Fonts/Roboto.ttf"),

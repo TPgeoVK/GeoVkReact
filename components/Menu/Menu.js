@@ -4,7 +4,8 @@ import {
 	createNavigationContainer,
 	TabRouter,
 	addNavigationHelpers,
-	StackNavigator, AsyncStorage } from 'react-navigation';
+	StackNavigator } from 'react-navigation';
+import {AsyncStorage} from 'react-native';
 import {Container, Footer, FooterTab, Button,} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CheckinsPage from '../CheckinsPage/CheckinsPage'
@@ -21,20 +22,23 @@ const Menu = ({navigation, activeTabName}) => {
 
 	const _logOut = async () => {
 
-		// await AsyncStorage.getItem('token', (err, result) => {
-		// 	fetch('http://tp2017.park.bmstu.cloud/tpgeovk/auth/login', {
-		// 		method: 'POST',
-		// 		headers: {
-		// 			'Content-Type': 'application/json',
-		// 		},
-		// 		body: JSON.stringify({
-		// 			token: result,
-		// 		})
-		// 	})
-		// }, (error) => {
-		// 	console.log(error)
-		// },);
-		// AsyncStorage.clear();
+		const token = await AsyncStorage.getItem('token');
+		if (token !== null) {
+			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/auth/logout', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					token: token,
+				})
+
+			}).then(()=>{console.log('logout')})
+
+		}
+
+		await AsyncStorage.removeItem('token');
+		console.log(await AsyncStorage.getItem('token'))
 	}
 
 	const {routes} = navigation.state;
@@ -61,17 +65,17 @@ const Menu = ({navigation, activeTabName}) => {
 					<Icon style={(activeTabName == 'Recommendations' ) ? styles.activeIcon : styles.icon}
 					      name="search"/>
 				</Button>
-				{/*<Button vertical*/}
-				        {/*title={"logOut"}*/}
-				        {/*onPress={() =>{*/}
-					        {/*navigation.navigate('Login');*/}
-					        {/*_logOut()*/}
-				        {/*} } //TODO*/}
-				{/*>*/}
+				<Button vertical
+				        title={"logOut"}
+				        onPress={() =>{
+					        navigation.navigate('Login');
+					        _logOut()
+				        } } //TODO
+				>
 
-					{/*<Icon style={(activeTabName == 'LogOut' ) ? styles.activeIcon : styles.icon}*/}
-					      {/*name="exit-to-app"/>*/}
-				{/*</Button>*/}
+					<Icon style={(activeTabName == 'LogOut' ) ? styles.activeIcon : styles.icon}
+					      name="exit-to-app"/>
+				</Button>
 			</FooterTab>
 		</Footer>
 	);

@@ -75,10 +75,10 @@ const CustomTabRouter = TabRouter(
 			screen: RecommendationsScreen,
 			path: 'Recommendations',
 		},
-		// Login: {
-		// 	screen: ({ navigation }) => <LoginNavigator screenProps={{ rootNavigation: navigation }} />
-		//
-		// }
+		Login: {
+			screen: ({ navigation }) => <LoginNavigator screenProps={{ rootNavigation: navigation }} />
+
+		}
 
 	},
 	{
