@@ -7,11 +7,20 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default class CheckinCard extends Component {
 	render() {
+
 		const checkin = this.props.checkin;
+		console.log('checkin card', checkin)
 		const date = new Date(parseInt(checkin.date) * 1000);
 		const month = date.getMonth();
-		const months = [ "янв", "фев", "мар", "апр", "май", "июн",
-			"июл", "авг", "сен", "окт", "ноя", "дек" ];
+		const months = ["янв", "фев", "мар", "апр", "май", "июн",
+			"июл", "авг", "сен", "окт", "ноя", "дек"];
+		const avatar = '';
+		// if (checkin.place.groupPhoto === null) {
+		// 	this.avatar = checkin.place.placeIcon;
+		// 	if (checkin.place.placeIcon === null) {
+		// 		this.avatar = 'https://vk.com/images/places/place.png'
+		// 	}
+		// }
 		return (
 			<Card style={styles.card}>
 
@@ -19,7 +28,7 @@ export default class CheckinCard extends Component {
 					<Left>
 
 						<Thumbnail
-						source={{uri: checkin.place.placeIcon}}/>
+							source={{uri: checkin.place.placeIcon}}/>
 						<Body>
 						<Text>{checkin.place.title}</Text>
 						<Text note>{date.getDate()} {months[month]} {date.getFullYear()}</Text>

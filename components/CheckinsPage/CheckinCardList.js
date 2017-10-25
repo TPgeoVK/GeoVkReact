@@ -14,8 +14,8 @@ export default class CheckinCardList extends Component {
 	render() {
 
 //TODO
-	console.log(this.state.checkins)
-		if (this.state.checkins === []) {
+		console.log(this.state.checkins)
+		if ('list',this.state.checkins === []) {
 			return (
 				<Content>
 					<Text>Вы пока нигде не отметелись(((</Text>
@@ -25,7 +25,7 @@ export default class CheckinCardList extends Component {
 		return (
 			<Content>
 				{this.state.checkins.map(checkin => (<CheckinCard key={checkin.checkinId} checkin={checkin}/>))}
-				{/*<CheckinCard checkin={checkins[1]}/>*/}
+				{/*<CheckinCard checkin={this.state.checkins[1]}/>*/}
 			</Content>
 		);
 	}

@@ -15,7 +15,7 @@ import NewPost from '../NewPostPage/NewPostPage'
 import styles from './styleMenu'
 
 import {NavigationActions} from 'react-navigation';
-
+import Cookie from 'react-native-cookie';
 
 
 const Menu = ({navigation, activeTabName}) => {
@@ -30,13 +30,13 @@ const Menu = ({navigation, activeTabName}) => {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					token: token,
+					token: token
 				})
 
 			}).then(()=>{console.log('logout')})
 
 		}
-
+		Cookie.clear();
 		await AsyncStorage.removeItem('token');
 		console.log(await AsyncStorage.getItem('token'))
 	}

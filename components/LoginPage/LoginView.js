@@ -15,9 +15,10 @@ export default class LoginView extends Component {
 	}
 
 	_onNavigationStateChange = async (webViewState) => {
-		const parsedUrl = url.parse(webViewState.url)
+		const parsedUrl = url.parse(webViewState.url);
 		console.log('parsedUrl',parsedUrl)
-		if (parsedUrl.hash !== null && !isLogged) {
+		console.log('parsedUrl',isLogged)
+		if (parsedUrl.hash !== null) {
 			if (parsedUrl.hash.indexOf('access_token=') >= 0) {
 				urlHash = parsedUrl.hash.slice(1,).split("&").map( el => el.split("=") )
 					.reduce( (pre, cur) => { pre[cur[0]] = cur[1]; return pre; }, {} );
@@ -44,7 +45,7 @@ export default class LoginView extends Component {
 						token: token,
 					})
 
-				})
+				});
 				console.log('auth/login',token)
 
 

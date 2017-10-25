@@ -114,7 +114,7 @@ export default class NewPostPage extends Component {
 				</Content>
 			<KeyboardAvoidingView>
 				<Text>{this.state.place.title}</Text>
-				<NewPostMenu navigation={this.props.navigation}/>
+				<NewPostMenu navigation={this.props.navigation} text={this.state.text} place={this.state.place}/>
 			</KeyboardAvoidingView>
 			</Container>
 		)

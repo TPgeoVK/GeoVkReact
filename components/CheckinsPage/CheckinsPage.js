@@ -39,7 +39,6 @@ export default class CheckinsPage extends Component {
 		});
 
 		AsyncStorage.getItem('token', (err, result) => {
-			console.log('token from storage (for request):', result);
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/user?token=' + result)
 				.then((response) => response.json())
 				.then(async (responseJson) => {
@@ -59,7 +58,7 @@ export default class CheckinsPage extends Component {
 
 	_renderScrollViewContent() {
 		// console.log('try to prop checkins');
-		// console.log(this.state.checkinsList);
+		 console.log('render',this.state.checkinsList);
 		if (this.state.isLoading && this.state.isLoadingUser) {
 			return (
 				<View style={styles.scrollViewContent}>
