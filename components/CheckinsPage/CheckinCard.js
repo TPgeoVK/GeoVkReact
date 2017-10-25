@@ -14,13 +14,16 @@ export default class CheckinCard extends Component {
 		const month = date.getMonth();
 		const months = ["янв", "фев", "мар", "апр", "май", "июн",
 			"июл", "авг", "сен", "окт", "ноя", "дек"];
-		const avatar = '';
-		// if (checkin.place.groupPhoto === null) {
-		// 	this.avatar = checkin.place.placeIcon;
-		// 	if (checkin.place.placeIcon === null) {
-		// 		this.avatar = 'https://vk.com/images/places/place.png'
-		// 	}
-		// }
+		let avatar = '';
+		if (checkin.place.groupPhoto === null) {
+			avatar = checkin.place.placeIcon;
+			if (checkin.place.placeIcon === null) {
+				avatar = 'https://vk.com/images/places/place.png'
+			}
+			else avatar = checkin.place.placeIcon;
+
+		} else avatar = checkin.place.groupPhoto;
+		console.log(checkin.place.groupPhoto,checkin.place.placeIcon, avatar)
 		return (
 			<Card style={styles.card}>
 
@@ -28,7 +31,7 @@ export default class CheckinCard extends Component {
 					<Left>
 
 						<Thumbnail
-							source={{uri: checkin.place.placeIcon}}/>
+							source={{uri: avatar}}/>
 						<Body>
 						<Text>{checkin.place.title}</Text>
 						<Text note>{date.getDate()} {months[month]} {date.getFullYear()}</Text>

@@ -46,7 +46,7 @@ export default class RecommendationsPage extends Component {
 			let token = data[0][1];
 			let latitude = data[1][1];
 			let longitude = data[2][1];
-			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/friends/byCheckins?token=' + token)
+			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/friends?token=' + token)
 				.then((response) => response.json())
 				.then(async (responseJson) => {
 					this.setState({

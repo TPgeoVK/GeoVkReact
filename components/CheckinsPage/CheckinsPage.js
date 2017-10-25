@@ -31,7 +31,7 @@ export default class CheckinsPage extends Component {
 						checkinsList: responseJson,
 						isLoading: false,
 					})
-					console.log(responseJson)
+					console.log('response',responseJson)
 				})
 				.catch((error) => {
 					console.error(error);
@@ -68,13 +68,14 @@ export default class CheckinsPage extends Component {
 		}
 		return (
 			<View style={styles.scrollViewContent}>
-				<CheckinCardList checkins={this.state.checkinsList}/>
+				<CheckinCardList checkinsList={this.state.checkinsList}/>
 			</View>
 		);
 
 	}
 
 	render() {
+		console.log('render111',this.state.checkinsList);
 		const headerTranslate = this.state.scrollY.interpolate({
 			inputRange: [0, consts.HEADER_SCROLL_DISTANCE],
 			outputRange: [0, -consts.HEADER_SCROLL_DISTANCE],

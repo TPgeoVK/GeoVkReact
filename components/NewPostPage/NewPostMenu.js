@@ -24,18 +24,8 @@ export default class NewPostMenu extends Component {
 					text: text,
 					place: place,
 				})
-			})
-				// .then((response) => response.json())
-				// .then(async (responseJson) => {
-				// 	this.setState({
-				// 		place: responseJson,
-				// 		isLoading: false,
-				// 	});
-				// 	console.log('place', this.state.place)
-				// 	console.log('text', this.state.text)
-				// })
-				// .catch((error) => {
-				// 	console.error(error); });
+			}).catch((error) => {
+					console.error(error); });
 
 		});
 	}

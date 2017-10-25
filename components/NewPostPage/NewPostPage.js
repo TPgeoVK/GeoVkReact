@@ -56,13 +56,8 @@ export default class NewPostPage extends Component {
 		navigator.geolocation.clearWatch(this.watchID)
 	}
 
-	_onChangeText = async(text) => {
-		this.setState({text});
-		console.log('text', text);
-		AsyncStorage.multiSet([
-			["postText", text],
-			["place", this.state.place]
-		])
+	_onChangeText = async() => {
+
 		AsyncStorage.multiGet([ 'token','latitude', 'longitude']).then((data) => {
 			let token = data[0][1];
 			let latitude = data[1][1];
@@ -109,7 +104,7 @@ export default class NewPostPage extends Component {
 					           placeholder="Где Вы? Что сейчас делаете?"
 					           style={styles.input}
 					           underlineColorAndroid='transparent'
-					           onChangeText={(text) => this._onChangeText(text)}
+					           onChangeText={() => this._onChangeText()}
 					          />
 				</Content>
 			<KeyboardAvoidingView>
