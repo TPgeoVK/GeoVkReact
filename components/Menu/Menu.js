@@ -21,7 +21,6 @@ import Cookie from 'react-native-cookie';
 const Menu = ({navigation, activeTabName}) => {
 
 	const _logOut = async () => {
-
 		const token = await AsyncStorage.getItem('token');
 		if (token !== null) {
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/auth/logout', {
