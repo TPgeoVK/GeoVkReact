@@ -17,7 +17,7 @@ export const predictPlace = (url, post, longitude, latitude) => {
                     payload: (action, state, res) => {
                         return getJSON(res).then(
                             (json) => {
-                                return Object.assign({}, json, normalizedData);
+                                return JSON.parse(json);
                             },
                         );
                     },

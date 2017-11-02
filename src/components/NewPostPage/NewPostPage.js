@@ -117,3 +117,13 @@ export default class NewPostPage extends Component {
 		)
 	}
 }
+
+const mapStateToProps = ({ place }, ownProps) => {
+    return {
+        ...place.title,
+    };
+};
+
+const mapDispatchToProps = () => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewPostPage);
