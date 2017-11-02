@@ -1,16 +1,5 @@
 {
-  "expo": {
-    "name": "GeoVK",
-    "version": "1.0.0",
-    "slug": "slug",
-    "sdkVersion": "21.0.0",
-    "ios": {
-      "bundleIdentifier": "com.vk.geovk"
-    },
-    "android": {
-      "package": "com.vk.geovk"
-    }
-  },
+  "package": "com.vk.geovk",
   "name": "VkGeo",
   "displayName": "VkGeo"
 }

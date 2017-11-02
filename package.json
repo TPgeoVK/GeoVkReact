@@ -14,10 +14,7 @@
     "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
     "avd-max": "~/Library/Android/sdk/emulator/emulator -avd Nexus_5_API_26",
-    "avd-frr": "~/Library/Android/sdk/emulator/emulator -avd Nexus_5X_API_23",
-    "build-android": "exp build:android",
-    "build-ios": "exp build:ios",
-    "build-status": "exp build:status"
+    "avd-frr": "~/Library/Android/sdk/emulator/emulator -avd Nexus_5X_API_23"
   },
   "jest": {
     "preset": "jest-expo"
