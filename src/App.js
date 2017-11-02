@@ -5,6 +5,10 @@ import LoginNavigator from './navigators/loginNavigator'
 import Root from './navigators/appNavigator'
 import getTheme from './native-base-theme/components';
 import platform from './native-base-theme/variables/platform';
+import { Provider } from 'react-redux'
+import createStore from './store/createStore'
+
+const store = createStore()
 
 
 export default class App extends Component {
@@ -82,23 +86,20 @@ export default class App extends Component {
 		// 	return <Expo.AppLoading/>;
 		// }
 		console.log('validtoken?:', this.state.isValidToken);
+		let content;
 		if (this.state.isValidToken) {
-			return (
-				<StyleProvider style={getTheme(platform)}>
-					<Container>
-						<Root/>
-					</Container>
-
-				</StyleProvider>
-			);
+			Content = <Root/>;
+		} else {
+			Content = <LoginNavigator/>;
 		}
 		return (
-			<StyleProvider style={getTheme(platform)}>
-				<Container>
-					<LoginNavigator/>
-				</Container>
-
-			</StyleProvider>
+			<Provider store={store}>
+				<StyleProvider style={getTheme(platform)}>
+					<Container>
+						{Content}
+					</Container>
+				</StyleProvider>
+			</Provider>
 		);
 	}
 }
