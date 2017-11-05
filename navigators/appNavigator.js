@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import CheckinsPage from '../components/CheckinsPage/CheckinsPage'
 import RecommendationsPage from '../components/RecommendationsPage/RecommendationsPage'
 import MapPage from '../components/MapPage/MapPage'
+import SettingsPage from '../components/SettingsPage/SettingsPage'
 import NewPost from '../components/NewPostPage/NewPostPage'
 import Menu from '../components/Menu/Menu'
 import LoginNavigator from './loginNavigator'
@@ -59,6 +60,9 @@ const MapScreen = ({navigation}) => (
 );
 
 
+const SettingsScreen = ({navigation}) => (
+	<SettingsPage navigation={navigation}/>
+);
 
 const CustomTabRouter = TabRouter(
 	{
@@ -75,6 +79,12 @@ const CustomTabRouter = TabRouter(
 			screen: RecommendationsScreen,
 			path: 'Recommendations',
 		},
+
+		Settings: {
+			screen: SettingsScreen,
+			path: 'Settings',
+		},
+
 		Login: {
 			screen: ({ navigation }) => <LoginNavigator screenProps={{ rootNavigation: navigation }} />
 
