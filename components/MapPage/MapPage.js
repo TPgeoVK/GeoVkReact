@@ -144,7 +144,10 @@ export default class MapPage extends Component {
 			console.log(this.state.markerPosition)
 			return (
 				<View style={styles.container}>
-
+					<StatusBar
+						translucent
+						barStyle="light-content"
+						backgroundColor="#3d5f86"/>
 					<AppHeader title={'Те кто рядом'}/>
 					<MapView
 						ref="map"

@@ -96,9 +96,12 @@ export default class NewPostPage extends Component {
 		return (
 
 			<Container>
-
+				<StatusBar
+					barStyle="light-content"
+					backgroundColor="#3d5f86"/>
+				<AppHeader title={'Новая запись'}/>
 				<Content>
-					<AppHeader style={{height:60}} title={'Новая запись'}/>
+
 					<TextInput multiline={true}
 					           autoFocus={true}
 					           autoCorrect={true}

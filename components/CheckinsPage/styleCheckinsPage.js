@@ -17,30 +17,21 @@ export default styles = {
 		overflow: 'hidden',
 		height: consts.HEADER_MAX_HEIGHT,
 	},
-	backgroundImage: {
-		position: 'absolute',
-		top: 0,
-		left: 0,
-		right: 0,
-		width: null,
-		height: consts.HEADER_MAX_HEIGHT,
-		resizeMode: 'cover',
-	},
 	bar: {
 		backgroundColor: 'transparent',
-		marginTop: Platform.OS === 'ios' ? 28 : 38,
+		marginTop: Platform.OS === 'ios' ? 25 : 35,
 		height: 32,
 		alignItems: 'center',
 		justifyContent: 'center',
 		position: 'absolute',
-		top: 0,
+		top: 190,
 		left: 0,
 		right: 0,
 	},
 	title: {
 		backgroundColor: 'transparent',
 		color: 'white',
-		fontSize: 28,
+		fontSize: 30,
 	},
 	scrollViewContent: {
 		marginTop: consts.HEADER_MAX_HEIGHT,
@@ -54,6 +45,8 @@ export default styles = {
 	},
 
 	circle: {
+		position: 'absolute',
+		top: 50,
 		width: 150,
 		height: 150,
 		borderRadius: 150 / 2,

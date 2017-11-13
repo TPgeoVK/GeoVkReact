@@ -85,7 +85,7 @@ export default class CheckinsPage extends Component {
 
 		const titleScale = this.state.scrollY.interpolate({
 			inputRange: [0, consts.HEADER_SCROLL_DISTANCE / 2, consts.HEADER_SCROLL_DISTANCE],
-			outputRange: [1, 1, 0.8],
+			outputRange: [1, 1, 0.85],
 			extrapolate: 'clamp',
 		});
 		const titleTranslate = this.state.scrollY.interpolate({
@@ -126,7 +126,7 @@ export default class CheckinsPage extends Component {
 						{
 							transform: [
 								{scale: titleScale},
-								{translateY: titleTranslate},
+								{translateY: headerTranslate},
 							],
 						},
 					]}>

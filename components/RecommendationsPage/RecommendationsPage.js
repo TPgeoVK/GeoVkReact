@@ -116,6 +116,10 @@ export default class RecommendationsPage extends Component {
 		console.log('!!', this.state.recommendationsList);
 		return (
 			<Container>
+				<StatusBar
+					translucent
+					barStyle="light-content"
+					backgroundColor="#3d5f86"/>
 				<AppHeader title={'Рекомендации'}/>
 				{this._renderContent()}
 			</Container>
