@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
-import {AppRegistry, Image, StyleSheet, View, WebView,StatusBar} from 'react-native';
-import {Container, Button, Text, Footer, FooterTab,Content} from 'native-base';
+import {AppRegistry, Image, StyleSheet, View, WebView, StatusBar, ActivityIndicator} from 'react-native';
+import {Container, Button, Text, Footer, FooterTab, Content, Card, CardItem} from 'native-base';
 import AppHeader from '../Header/Header'
 import DevelopersCardList from './DevelopersCardList'
+import styles from './styleSettingsPage'
 
 import {
 	createNavigator,
 	createNavigationContainer,
 	TabRouter,
 	addNavigationHelpers,
-	StackNavigator,NavigationActions } from 'react-navigation';
+	StackNavigator, NavigationActions
+} from 'react-navigation';
 
 import {AsyncStorage} from 'react-native';
 import Cookie from 'react-native-cookie';
@@ -19,19 +21,21 @@ export default class SettingsPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			developersId: [305329040,29817384,13796551],
+			developersId: '305329040,29817384,13796551',
 			developersList: [],
+			isLoading: true,
 		};
 	}
 
 	componentDidMount() {
 
 		AsyncStorage.getItem('token', (err, result) => {
-			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/latest?token=' + result)
+			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/users?token=' + result + '&ids=' + this.state.developersId)
 				.then((response) => response.json())
 				.then(async (responseJson) => {
 					this.setState({
 						developersList: responseJson,
+						isLoading: false,
 					});
 					console.log(this.state);
 				})
@@ -54,7 +58,9 @@ export default class SettingsPage extends Component {
 						token: token
 					})
 
-				}).then(()=>{console.log('logout')})
+				}).then(() => {
+					console.log('logout')
+				})
 
 			}
 
@@ -71,6 +77,12 @@ export default class SettingsPage extends Component {
 				}
 			));
 		}
+
+		if (this.state.isLoading) {
+			return (
+				<ActivityIndicator/>
+			);
+		}
 		return (
 			<Container>
 				<StatusBar
@@ -81,18 +93,17 @@ export default class SettingsPage extends Component {
 				<Content>
 					<DevelopersCardList developers={this.state.developersList}/>
 				</Content>
-				<Footer>
-					<FooterTab>
-						<Button full light
-						        onPress={() =>{
-							        this.props.navigation.navigate('Login');
-							        _logOut()
-						        } } //TODO
-						>
-							<Text>Выйти</Text>
-						</Button>
-					</FooterTab>
-				</Footer>
+
+
+				<Button full light
+				        onPress={() => {
+					        this.props.navigation.navigate('Login');
+					        _logOut()
+				        }} //TODO
+				>
+					<Text style={styles.button}>Выйти</Text>
+				</Button>
+
 
 			</Container>
 		);

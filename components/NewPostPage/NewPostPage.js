@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {TextInput, KeyboardAvoidingView, Text,AsyncStorage,StatusBar, View} from 'react-native';
+import {TextInput, KeyboardAvoidingView, Text, AsyncStorage, StatusBar, View} from 'react-native';
 import {Container, Content} from 'native-base';
 import AppHeader from '../Header/Header'
 import NewPostMenu from '../NewPostPage/NewPostMenu'
 import styles from './styleNewPostMenu'
-
 
 
 export default class NewPostPage extends Component {
@@ -13,9 +12,10 @@ export default class NewPostPage extends Component {
 		this.state = {
 			isLoading: true,
 			place: {
-				title:'',
+				title: '',
 			},
 			text: '',
+			count: 0,
 		};
 	}
 
@@ -26,13 +26,15 @@ export default class NewPostPage extends Component {
 				let lat = parseFloat(position.coords.latitude);
 				let long = parseFloat(position.coords.longitude);
 
-				console.log('coordinates:',lat,long )
+				console.log('coordinates:', lat, long)
 				AsyncStorage.multiSet([
 					["latitude", lat],
 					["longitude", long]
 				])
 			},
-			(error)=>{console.log(error)},
+			(error) => {
+				console.log(error)
+			},
 			// {enableHighAccuracy:true,timeout:20000,maximumAge:1000}
 		)
 
@@ -47,48 +49,52 @@ export default class NewPostPage extends Component {
 		});
 
 
-
 	}
-
 
 
 	componentWillMount() {
 		navigator.geolocation.clearWatch(this.watchID)
 	}
 
-	_onChangeText = async(text) => {
+	_onChangeText = async (text) => {
 		this.setState({
 			text: text,
 		});
-		AsyncStorage.multiGet([ 'token','latitude', 'longitude']).then((data) => {
-			let token = data[0][1];
-			let latitude = data[1][1];
-			let longitude = data[2][1];
+		this.state.count++;
+		console.log(this.state.text)
+		if (this.state.text[this.state.text.length - 1] === ' ' || this.state.count%3 === 0) {
+			console.log('if',this.state.text)
+			AsyncStorage.multiGet(['token', 'latitude', 'longitude']).then((data) => {
+				let token = data[0][1];
+				let latitude = data[1][1];
+				let longitude = data[2][1];
 
-			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/location/detectPlace', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					token: token,
-					latitude: latitude,
-					longitude: longitude,
-					text: this.state.text,
-				})
-			}).then((response) => response.json())
-				.then(async (responseJson) => {
-					this.setState({
-						place: responseJson,
-						isLoadingFriends: false,
+				fetch('http://tp2017.park.bmstu.cloud/tpgeovk/location/detectPlace', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						token: token,
+						latitude: latitude,
+						longitude: longitude,
+						text: this.state.text,
+					})
+				}).then((response) => response.json())
+					.then(async (responseJson) => {
+						this.setState({
+							place: responseJson,
+							isLoadingFriends: false,
+						});
+						console.log('place', this.state.place)
+						console.log('text', this.state.text)
+					})
+					.catch((error) => {
+						console.error(error);
 					});
-					console.log('place', this.state.place)
-					console.log('text', this.state.text)
-				})
-				.catch((error) => {
-					console.error(error); });
 
-		});
+			});
+		}
 	}
 
 
@@ -110,12 +116,12 @@ export default class NewPostPage extends Component {
 					           style={styles.input}
 					           underlineColorAndroid='transparent'
 					           onChangeText={(text) => this._onChangeText(text)}
-					          />
+					/>
 				</Content>
-			<KeyboardAvoidingView>
-				<Text>{this.state.place.title}</Text>
-				<NewPostMenu navigation={this.props.navigation} text={this.state.text} place={this.state.place}/>
-			</KeyboardAvoidingView>
+				<KeyboardAvoidingView>
+					<Text>{this.state.place.title}</Text>
+					<NewPostMenu navigation={this.props.navigation} text={this.state.text} place={this.state.place}/>
+				</KeyboardAvoidingView>
 			</Container>
 		)
 	}

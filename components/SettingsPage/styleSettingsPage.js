@@ -18,4 +18,7 @@ export default styles = {
 		flex: 0,
 		flexWrap: 'nowrap'
 	},
+	button: {
+		color: '#ff1c21',
+	},
 }

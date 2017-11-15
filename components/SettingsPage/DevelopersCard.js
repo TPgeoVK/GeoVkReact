@@ -9,14 +9,19 @@ export default class DevelopersCard extends Component {
 		const developer = this.props.developer;
 
 		const name = `${developer.firstName} ${developer.lastName}`;
+		let photo;
+		if (developer.photo200 === null) {
+			photo = 'https://vk.com/images/deactivated_200.png'
+		} else {
+			photo = developer.photo200;
+		}
+
 		return (
-			<Card style={styles.card}>
 				<CardItem>
 					<Left>
-						<Thumbnail source={{uri: developer.photo200}}/>
+						<Thumbnail source={{uri: photo}}/>
 						<Body>
 						<Text style={styles.text}>{name}</Text>
-						<Text note style={styles.textNote}>{developer.occupation}</Text>
 						</Body>
 					</Left>
 					<Right>
@@ -28,7 +33,6 @@ export default class DevelopersCard extends Component {
 					</Right>
 				</CardItem>
 
-			</Card>
 		)
 	}
 }

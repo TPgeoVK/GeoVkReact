@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Image, View} from 'react-native';
-import {Content,Text} from 'native-base';
+import {Content,Text,CardItem,Card} from 'native-base';
 import DevelopersCard from './DevelopersCard'
 
 export default class DevelopersCardList extends Component {
@@ -16,8 +16,12 @@ export default class DevelopersCardList extends Component {
 
 		return (
 			<Content>
+				<Card>
+				<CardItem>
+				<Text> Разработчики </Text></CardItem>
 				{this.state.developers.map(developer => (<DevelopersCard key={developer.id} developer={developer}/>))}
-			</Content>
+				</Card>
+				</Content>
 		);
 	}
 }
