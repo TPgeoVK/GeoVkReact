@@ -18,4 +18,12 @@ export default styles = {
 		flex: 0,
 		flexWrap: 'nowrap'
 	},
+	activityIndicator: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	scrollViewContent:{
+		flex:1,
+	}
 }

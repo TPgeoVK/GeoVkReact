@@ -4,6 +4,7 @@ import {Container, Tab, Tabs} from 'native-base';
 import AppHeader from '../Header/Header'
 import FriendsTab from './FriendsTab';
 import GroupsTab from './GroupsTab';
+import styles from './styleRecommendationsPage'
 
 
 export default class RecommendationsPage extends Component {
@@ -92,12 +93,12 @@ export default class RecommendationsPage extends Component {
 		if (this.state.isLoadingFriends) {
 			return (
 				<View style={styles.scrollViewContent}>
-					<ActivityIndicator/>
+					<ActivityIndicator size={70} color={'#3d5f86'} style={styles.activityIndicator}/>
 				</View>
 			);
 		}
 		return (
-			<Tabs initialPage={1}>
+			<Tabs initialPage={0}>
 				<Tab
 					heading="Друзья">
 					<FriendsTab recommendationsList={this.state.recommendationsListFriends}/>

@@ -7,6 +7,11 @@ export default styles = {
 		borderWidth: 0,
 		fontSize: 15,
 		textAlignVertical: 'top'
-	}
+	},
+	card: {
+		flex: 0,
+		flexWrap: 'nowrap',
+		height:80
+	},
 
 }

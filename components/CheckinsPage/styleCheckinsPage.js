@@ -35,6 +35,7 @@ export default styles = {
 	},
 	scrollViewContent: {
 		marginTop: consts.HEADER_MAX_HEIGHT,
+		flex:1,
 	},
 	row: {
 		height: 40,
@@ -82,6 +83,11 @@ export default styles = {
 	text: {
 		fontSize: 15,
 		color: '#a7a8aa',
-	}
+	},
+	activityIndicator: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
 
 }

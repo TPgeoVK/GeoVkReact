@@ -63,7 +63,7 @@ export default class CheckinsPage extends Component {
 		if ((this.state.isLoadingFriends && this.state.isLoadingUser) && ('error' in this.state.checkinsList)) {
 			return (
 				<View style={styles.scrollViewContent}>
-					<ActivityIndicator/>
+					<ActivityIndicator size={70} color={'#3d5f86'} style={styles.activityIndicator}/>
 				</View>
 			);
 		}

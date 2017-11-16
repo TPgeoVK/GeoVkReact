@@ -21,4 +21,12 @@ export default styles = {
 	button: {
 		color: '#ff1c21',
 	},
+	activityIndicator: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	scrollViewContent:{
+		flex:1,
+	}
 }

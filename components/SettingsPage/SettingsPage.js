@@ -80,7 +80,9 @@ export default class SettingsPage extends Component {
 
 		if (this.state.isLoading) {
 			return (
-				<ActivityIndicator/>
+				<View style={styles.scrollViewContent}>
+					<ActivityIndicator size={70} color={'#3d5f86'} style={styles.activityIndicator}/>
+				</View>
 			);
 		}
 		return (
