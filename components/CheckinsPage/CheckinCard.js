@@ -23,7 +23,7 @@ export default class CheckinCard extends Component {
 			else avatar = checkin.place.placeIcon;
 
 		} else avatar = checkin.place.groupPhoto;
-		console.log(checkin.place.groupPhoto,checkin.place.placeIcon, avatar)
+		//console.log(checkin.place.groupPhoto,checkin.place.placeIcon, avatar)
 		return (
 			<Card style={styles.card}>
 

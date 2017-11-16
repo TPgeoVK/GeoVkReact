@@ -1,5 +1,15 @@
 import React, {Component} from 'react';
-import {Image, Animated, Platform, StatusBar, StyleSheet, View, AsyncStorage, ActivityIndicator,Text} from 'react-native';
+import {
+	Image,
+	Animated,
+	Platform,
+	StatusBar,
+	StyleSheet,
+	View,
+	AsyncStorage,
+	ActivityIndicator,
+	Text, RefreshControl
+} from 'react-native';
 import {Fab} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CheckinCardList from './CheckinCardList';
@@ -16,50 +26,103 @@ export default class CheckinsPage extends Component {
 			isLoading: true,
 			isLoadingUser: true,
 			checkinsList: [],
-			user:[],
+			user: [],
+			refreshing: false,
 		};
 	}
 
 	componentDidMount() {
+		AsyncStorage.getItem('checkinsList').then((item) => {
+			console.log('checkinsList', JSON.parse(item))
+			if (JSON.parse(item) === null) {
+				AsyncStorage.getItem('token', (err, result) => {
+					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + result)
+						.then((response) => response.json())
+						.then(async (responseJson) => {
+							this.setState({
+								checkinsList: responseJson,
+								isLoading: false,
+							});
+							AsyncStorage.setItem('checkinsList', JSON.stringify(this.state.checkinsList));
+						})
+						.catch((error) => {
+							console.error(error);
+						});
+				});
+			} else {
+				this.setState({
+					checkinsList: JSON.parse(item),
+					isLoading: false,
+				})
+			}
+
+
+		});
+		AsyncStorage.getItem('user').then((item) => {
+			if (JSON.parse(item) === null) {
+				AsyncStorage.getItem('token', (err, result) => {
+					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/user?token=' + result)
+						.then((response) => response.json())
+						.then(async (responseJson) => {
+							this.setState({
+								user: responseJson,
+								isLoadingUser: false,
+							});
+							AsyncStorage.setItem('user', JSON.stringify(this.state.user));
+						})
+						.catch((error) => {
+							console.error(error);
+						});
+				});
+			} else {
+				this.setState({
+					user: JSON.parse(item),
+					isLoadingUser: false,
+				})
+			}
+		});
+	}
+
+	_onRefresh () {
+		this.setState({refreshing: true});
+		AsyncStorage.removeItem('user');
+		AsyncStorage.removeItem('checkinsList');
 		AsyncStorage.getItem('token', (err, result) => {
-			console.log('token from storage (for request):', result);
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + result)
 				.then((response) => response.json())
 				.then(async (responseJson) => {
-					// await AsyncStorage.setItem('checkinsList', responseJson);
 					this.setState({
 						checkinsList: responseJson,
 						isLoading: false,
-					})
-					console.log('response',responseJson)
+					});
+					AsyncStorage.setItem('checkinsList', JSON.stringify(this.state.checkinsList));
 				})
 				.catch((error) => {
 					console.error(error);
 				});
-		});
 
-		AsyncStorage.getItem('token', (err, result) => {
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/user?token=' + result)
 				.then((response) => response.json())
 				.then(async (responseJson) => {
-					// await AsyncStorage.setItem('checkinsList', responseJson);
 					this.setState({
 						user: responseJson,
 						isLoadingUser: false,
-					})
-					// console.log('user', this.state.user)
+					});
+					AsyncStorage.setItem('user', JSON.stringify(this.state.user));
 				})
 				.catch((error) => {
 					console.error(error);
 				});
-		});
+		})
+			.then(() => {
+				this.setState({refreshing: false});
+			}
+		);
 	}
 
 
 	_renderScrollViewContent() {
-		// console.log('try to prop checkins');
-		 console.log('render',this.state.checkinsList);
-		 console.log('render',this.state.checkinsList.error);
+
 		if ((this.state.isLoadingFriends && this.state.isLoadingUser) && ('error' in this.state.checkinsList)) {
 			return (
 				<View style={styles.scrollViewContent}>
@@ -76,7 +139,7 @@ export default class CheckinsPage extends Component {
 	}
 
 	render() {
-		console.log('render111',this.state.checkinsList);
+		//console.log('render111', this.state.checkinsList);
 		const headerTranslate = this.state.scrollY.interpolate({
 			inputRange: [0, consts.HEADER_SCROLL_DISTANCE],
 			outputRange: [0, -consts.HEADER_SCROLL_DISTANCE],
@@ -103,10 +166,17 @@ export default class CheckinsPage extends Component {
 				<Animated.ScrollView
 					style={styles.fill}
 					scrollEventThrottle={1}
-					onScroll={Animated.event(
+					refreshControl={
+						<RefreshControl
+							tintColor='#3d5f86'
+							colors={['#3d5f86']}
+							refreshing={this.state.refreshing}
+							onRefresh={this._onRefresh.bind(this)}/>}
+							onScroll={Animated.event(
 						[{nativeEvent: {contentOffset: {y: this.state.scrollY}}}],
 						{useNativeDriver: true},
-					)}>
+					)}
+				>
 					{this._renderScrollViewContent()}
 				</Animated.ScrollView>
 				<Animated.View
@@ -118,7 +188,7 @@ export default class CheckinsPage extends Component {
 
 					<Image style={styles.circle}
 					       source={{uri: this.state.user.photo200}}/>
-					
+
 				</Animated.View>
 				<Animated.View
 					style={[

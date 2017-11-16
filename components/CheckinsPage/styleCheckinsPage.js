@@ -4,6 +4,7 @@ import {Platform,} from 'react-native';
 export default styles = {
 	fill: {
 		flex: 1,
+		zIndex:2,
 	},
 	content: {
 		flex: 1,
@@ -16,6 +17,7 @@ export default styles = {
 		backgroundColor: '#6796CC',
 		overflow: 'hidden',
 		height: consts.HEADER_MAX_HEIGHT,
+
 	},
 	bar: {
 		backgroundColor: 'transparent',
