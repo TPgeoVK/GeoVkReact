@@ -1,5 +1,15 @@
 import React, {Component} from 'react';
-import {AppRegistry, Image, StyleSheet, View, WebView, StatusBar, ActivityIndicator} from 'react-native';
+import {
+	AppRegistry,
+	Image,
+	StyleSheet,
+	View,
+	WebView,
+	StatusBar,
+	ActivityIndicator,
+	ScrollView,
+	RefreshControl
+} from 'react-native';
 import {Container, Button, Text, Footer, FooterTab, Content, Card, CardItem} from 'native-base';
 import AppHeader from '../Header/Header'
 import DevelopersCardList from './DevelopersCardList'
@@ -28,7 +38,35 @@ export default class SettingsPage extends Component {
 	}
 
 	componentDidMount() {
+		AsyncStorage.getItem('developersList').then((item) => {
+			console.log('developersList', JSON.parse(item))
+			if (JSON.parse(item) === null) {
+				AsyncStorage.getItem('token', (err, result) => {
+					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/users?token=' + result + '&ids=' + this.state.developersId)
+						.then((response) => response.json())
+						.then(async (responseJson) => {
+							this.setState({
+								developersList: responseJson,
+								isLoading: false,
+							});
+							console.log(this.state);
+						})
+						.catch((error) => {
+							console.error(error);
+						});
+				});
+			} else {
+				this.setState({
+					developersList: JSON.parse(item),
+					isLoading: false,
+				})
+			}
+		});
+	}
 
+	_onRefresh() {
+		this.setState({refreshing: true});
+		AsyncStorage.removeItem('developersList');
 		AsyncStorage.getItem('token', (err, result) => {
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/users?token=' + result + '&ids=' + this.state.developersId)
 				.then((response) => response.json())
@@ -42,12 +80,17 @@ export default class SettingsPage extends Component {
 				.catch((error) => {
 					console.error(error);
 				});
-		});
+		})
+			.then(() => {
+					this.setState({refreshing: false});
+				}
+			);
 	}
+
 
 	render() {
 		const _logOut = async () => {
-			const token = await AsyncStorage.getItem('token');
+			const token = await AsyncStorage.clear();
 			if (token !== null) {
 				fetch('http://tp2017.park.bmstu.cloud/tpgeovk/auth/logout', {
 					method: 'POST',
@@ -80,8 +123,8 @@ export default class SettingsPage extends Component {
 
 		if (this.state.isLoading) {
 			return (
-				<View style={styles.scrollViewContent}>
-					<ActivityIndicator size={70} color={'#3d5f86'} style={styles.activityIndicator}/>
+				<View>
+					<ActivityIndicator/>
 				</View>
 			);
 		}
@@ -92,9 +135,15 @@ export default class SettingsPage extends Component {
 					barStyle="light-content"
 					backgroundColor="#3d5f86"/>
 				<AppHeader title={'О приложении'}/>
-				<Content>
+				<Content style={{flex: 1}}><ScrollView
+					refreshControl={
+						<RefreshControl
+							tintColor='#3d5f86'
+							colors={['#3d5f86']}
+							refreshing={this.state.refreshing}
+							onRefresh={this._onRefresh.bind(this)}/>}>
 					<DevelopersCardList developers={this.state.developersList}/>
-				</Content>
+				</ScrollView></Content>
 
 
 				<Button full light

@@ -1,6 +1,17 @@
 import React, {Component} from 'react';
-import {Image, Animated, Platform, StatusBar, StyleSheet, View,} from 'react-native';
+import {
+	Image,
+	Animated,
+	Platform,
+	StatusBar,
+	StyleSheet,
+	View,
+	RefreshControl,
+	AsyncStorage,
+	ActivityIndicator
+} from 'react-native';
 import RecommendationsCardListGroups from './RecommendationsCardListGroups'
+
 
 export default class GroupsTab extends Component {
 	constructor(props) {
@@ -8,24 +19,121 @@ export default class GroupsTab extends Component {
 
 		this.state = {
 			scrollY: new Animated.Value(0),
-			recommendationsList: this.props.recommendationsList,
+			recommendationsListGroups: [],
+			isLoadingGroups: true,
+			refreshing: false,
 		};
 
-		console.log(this.props)
+	}
 
+	watchID: ?number = null;
+
+	componentDidMount() {
+		navigator.geolocation.getCurrentPosition((position) => {
+				let lat = parseFloat(position.coords.latitude);
+				let long = parseFloat(position.coords.longitude);
+				AsyncStorage.multiSet([
+					["latitude", lat.toString()],
+					["longitude", long.toString()]
+				])
+			},
+			(error) => {
+				console.log(error)
+			},
+		);
+
+		this.watchID = navigator.geolocation.watchPosition((position) => {
+			let lat = parseFloat(position.coords.latitude);
+			let long = parseFloat(position.coords.longitude);
+			AsyncStorage.multiSet([
+				["latitude", lat.toString()],
+				["longitude", long.toString()]
+			])
+		});
+
+		AsyncStorage.getItem('recommendationsListGroups').then((item) => {
+			console.log('recommendationsListGroups', JSON.parse(item))
+			if (JSON.parse(item) === null) {
+				AsyncStorage.multiGet(['token', 'latitude', 'longitude']).then((data) => {
+					let token = data[0][1];
+					let latitude = data[1][1];
+					let longitude = data[2][1];
+					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/groups?token=' + token)
+						.then((response) => response.json())
+						.then(async (responseJson) => {
+							this.setState({
+								recommendationsListGroups: responseJson,
+								isLoadingGroups: false,
+							})
+							AsyncStorage.setItem('recommendationsListGroups', JSON.stringify(this.state.recommendationsListGroups));
+							console.log('recgr', responseJson, this.state.recommendationsListGroups);
+						})
+						.catch((error) => {
+							console.error(error);
+						});
+				});
+			} else {
+				this.setState({
+					recommendationsListGroups: JSON.parse(item),
+					isLoadingGroups: false,
+				})
+			}
+
+
+		});
+
+	}
+
+	componentWillMount() {
+		navigator.geolocation.clearWatch(this.watchID)
+	}
+
+
+	_onRefresh() {
+		this.setState({refreshing: true});
+		console.log('чистим')
+		AsyncStorage.removeItem('recommendationsListGroups');
+		AsyncStorage.multiGet(['token', 'latitude', 'longitude']).then((data) => {
+			let token = data[0][1];
+			let latitude = data[1][1];
+			let longitude = data[2][1];
+			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/groups?token=' + token)
+				.then((response) => response.json())
+				.then(async (responseJson) => {
+					this.setState({
+						recommendationsListGroups: responseJson,
+						isLoadingGroups: false,
+					})
+					AsyncStorage.setItem('recommendationsListGroups', JSON.stringify(this.state.recommendationsListGroups));
+					console.log('recgr', responseJson, this.state.recommendationsListGroups);
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		})
+			.then(() => {
+					this.setState({refreshing: false});
+				}
+			);
 	}
 
 	_renderScrollViewContent() {
 		const data = Array.from({length: 30});
 		return (
 			<View style={styles.scrollViewContent}>
-				<RecommendationsCardListGroups recommendations={this.state.recommendationsList}/>
+				<RecommendationsCardListGroups recommendations={this.state.recommendationsListGroups}/>
 			</View>
 		);
 	}
 
 	render() {
-
+		if (this.state.isLoadingGroups) {
+			return (
+				<View style={styles.scrollViewContent}>
+					<ActivityIndicator size={70} color={'#3d5f86'} style={styles.activityIndicator}/>
+				</View>
+			);
+		}
 		return (
 
 			<Animated.ScrollView
@@ -35,10 +143,18 @@ export default class GroupsTab extends Component {
 					[{nativeEvent: {contentOffset: {y: this.state.scrollY}}}],
 					{useNativeDriver: true},
 				)}
+				refreshControl={
+					<RefreshControl
+						tintColor='#3d5f86'
+						colors={['#3d5f86']}
+						refreshing={this.state.refreshing}
+						onRefresh={this._onRefresh.bind(this)}/>}
 			>
 				{this._renderScrollViewContent()}
 			</Animated.ScrollView>
 		);
 	}
+
+
 }
 

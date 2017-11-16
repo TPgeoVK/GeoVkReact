@@ -56,7 +56,6 @@ export default class CheckinsPage extends Component {
 				})
 			}
 
-
 		});
 		AsyncStorage.getItem('user').then((item) => {
 			if (JSON.parse(item) === null) {
@@ -166,16 +165,16 @@ export default class CheckinsPage extends Component {
 				<Animated.ScrollView
 					style={styles.fill}
 					scrollEventThrottle={1}
+					onScroll={Animated.event(
+						[{nativeEvent: {contentOffset: {y: this.state.scrollY}}}],
+						{useNativeDriver: true},
+					)}
 					refreshControl={
 						<RefreshControl
 							tintColor='#3d5f86'
 							colors={['#3d5f86']}
 							refreshing={this.state.refreshing}
 							onRefresh={this._onRefresh.bind(this)}/>}
-							onScroll={Animated.event(
-						[{nativeEvent: {contentOffset: {y: this.state.scrollY}}}],
-						{useNativeDriver: true},
-					)}
 				>
 					{this._renderScrollViewContent()}
 				</Animated.ScrollView>
