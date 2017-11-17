@@ -23,7 +23,6 @@ export default class GroupsTab extends Component {
 			isLoadingGroups: true,
 			refreshing: false,
 		};
-
 	}
 
 	watchID: ?number = null;
@@ -53,17 +52,14 @@ export default class GroupsTab extends Component {
 
 		AsyncStorage.getItem('recommendationsListGroups').then((item) => {
 			if (JSON.parse(item) === null) {
-				AsyncStorage.multiGet(['token', 'latitude', 'longitude']).then((data) => {
-					let token = data[0][1];
-					let latitude = data[1][1];
-					let longitude = data[2][1];
-					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/groups?token=' + token)
+				AsyncStorage.getItem('token', (err, result) => {
+					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/groups?token=' + result)
 						.then((response) => response.json())
 						.then((responseJson) => {
 							this.setState({
 								recommendationsListGroups: responseJson,
 								isLoadingGroups: false,
-							})
+							});
 							AsyncStorage.setItem('recommendationsListGroups', JSON.stringify(this.state.recommendationsListGroups));
 
 						})
@@ -91,11 +87,8 @@ export default class GroupsTab extends Component {
 	_onRefresh() {
 		this.setState({refreshing: true});
 		AsyncStorage.removeItem('recommendationsListGroups');
-		AsyncStorage.multiGet(['token', 'latitude', 'longitude']).then((data) => {
-			let token = data[0][1];
-			let latitude = data[1][1];
-			let longitude = data[2][1];
-			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/groups?token=' + token)
+		AsyncStorage.getItem('token', (err, result) => {
+			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/groups?token=' + result)
 				.then((response) => response.json())
 				.then((responseJson) => {
 					this.setState({

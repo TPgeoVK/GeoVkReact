@@ -38,7 +38,7 @@ export default class CheckinsPage extends Component {
 				AsyncStorage.getItem('token', (err, result) => {
 					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + result)
 						.then((response) => response.json())
-						.then(async (responseJson) => {
+						.then( (responseJson) => {
 							this.setState({
 								checkinsList: responseJson,
 								isLoading: false,
@@ -62,7 +62,7 @@ export default class CheckinsPage extends Component {
 				AsyncStorage.getItem('token', (err, result) => {
 					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/user?token=' + result)
 						.then((response) => response.json())
-						.then(async (responseJson) => {
+						.then( (responseJson) => {
 							this.setState({
 								user: responseJson,
 								isLoadingUser: false,

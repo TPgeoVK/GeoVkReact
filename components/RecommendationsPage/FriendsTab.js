@@ -53,17 +53,14 @@ export default class FriendsTab extends Component {
 		AsyncStorage.getItem('recommendationsListFriends').then((item) => {
 
 			if (JSON.parse(item) === null) {
-				AsyncStorage.multiGet(['token', 'latitude', 'longitude']).then((data) => {
-					let token = data[0][1];
-					let latitude = data[1][1];
-					let longitude = data[2][1];
-					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/friends?token=' + token)
+				AsyncStorage.getItem('token', (err, result) => {
+					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/friends?token=' + result)
 						.then((response) => response.json())
 						.then((responseJson) => {
 							this.setState({
 								recommendationsListFriends: responseJson,
 								isLoadingFriends: false,
-							})
+							});
 							AsyncStorage.setItem('recommendationsListFriends', JSON.stringify(this.state.recommendationsListFriends));
 
 						})
@@ -71,6 +68,7 @@ export default class FriendsTab extends Component {
 							console.error(error);
 						});
 				});
+
 			} else {
 				this.setState({
 					recommendationsListFriends: JSON.parse(item),
@@ -91,12 +89,8 @@ export default class FriendsTab extends Component {
 	_onRefresh() {
 		this.setState({refreshing: true});
 		AsyncStorage.removeItem('recommendationsListFriends');
-		AsyncStorage.multiGet(['token', 'latitude', 'longitude']).then((data) => {
-			let token = data[0][1];
-			let latitude = data[1][1];
-			let longitude = data[2][1];
-
-			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/friends?token=' + token)
+		AsyncStorage.getItem('token', (err, result) => {
+			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/friends?token=' + result)
 				.then((response) => response.json())
 				.then((responseJson) => {
 					this.setState({

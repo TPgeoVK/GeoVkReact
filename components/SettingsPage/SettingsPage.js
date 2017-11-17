@@ -44,7 +44,7 @@ export default class SettingsPage extends Component {
 				AsyncStorage.getItem('token', (err, result) => {
 					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/users?token=' + result + '&ids=' + this.state.developersId)
 						.then((response) => response.json())
-						.then(async (responseJson) => {
+						.then((responseJson) => {
 							this.setState({
 								developersList: responseJson,
 								isLoading: false,
@@ -70,7 +70,7 @@ export default class SettingsPage extends Component {
 		AsyncStorage.getItem('token', (err, result) => {
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/users?token=' + result + '&ids=' + this.state.developersId)
 				.then((response) => response.json())
-				.then(async (responseJson) => {
+				.then((responseJson) => {
 					this.setState({
 						developersList: responseJson,
 						isLoading: false,
@@ -135,7 +135,7 @@ export default class SettingsPage extends Component {
 					barStyle="light-content"
 					backgroundColor="#3d5f86"/>
 				<AppHeader title={'О приложении'}/>
-				<Content style={{flex: 1}}><ScrollView
+				<Content style={{flex: 0}}><ScrollView
 					refreshControl={
 						<RefreshControl
 							tintColor='#3d5f86'

@@ -40,7 +40,7 @@ export default class App extends Component {
 			])
 		});
 
-		AsyncStorage.multiRemove(['recommendationsListFriends', 'recommendationsListGroups', 'user', 'checkinsList']);
+		//AsyncStorage.multiRemove(['recommendationsListFriends', 'recommendationsListGroups', 'user', 'checkinsList']);
 
 
 		// AsyncStorage.multiGet([ 'token','latitude', 'longitude']).then((data) => {
@@ -64,8 +64,50 @@ export default class App extends Component {
 			await fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/user?token=' + token)
 				.then((response) => response.json())
 				.then((responseJson) => {
-					if (!responseJson['error'])
+					if (!responseJson['error']) {
 						this.setState({isValidToken: true});
+
+						AsyncStorage.getItem('token', (err, result) => {
+							fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/user?token=' + result)
+								.then((response) => response.json())
+								.then( (responseJson) => {
+									AsyncStorage.setItem('user', JSON.stringify(this.state.user));
+								})
+								.catch((error) => {
+									console.error(error);
+								});
+
+							fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + result)
+								.then((response) => response.json())
+								.then( (responseJson) => {
+									AsyncStorage.setItem('checkinsList', JSON.stringify(this.state.checkinsList));
+								})
+								.catch((error) => {
+									console.error(error);
+								});
+
+							fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/friends?token=' + result)
+								.then((response) => response.json())
+								.then((responseJson) => {
+									AsyncStorage.setItem('recommendationsListFriends', JSON.stringify(this.state.recommendationsListFriends));
+								})
+								.catch((error) => {
+									console.error(error);
+								});
+							fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/groups?token=' + token)
+								.then((response) => response.json())
+								.then((responseJson) => {
+									AsyncStorage.setItem('recommendationsListGroups', JSON.stringify(this.state.recommendationsListGroups));
+								})
+								.catch((error) => {
+									console.error(error);
+								});
+
+						});
+
+
+
+					}
 					console.log('token valid!');
 				})
 				.catch((error) => {
