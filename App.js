@@ -26,7 +26,6 @@ export default class App extends Component {
 				])
 			},
 			(error)=>{console.log(error)},
-			// {enableHighAccuracy:true,timeout:20000,maximumAge:1000}
 		)
 
 
@@ -39,24 +38,23 @@ export default class App extends Component {
 			])
 		});
 
-		AsyncStorage.multiGet([ 'token','latitude', 'longitude']).then((data) => {
-			let token = data[0][1];
-			let latitude = data[1][1];
-			let longitude = data[2][1];
-			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/trigger?token=' + token + '&latitude' + latitude + '&longitude' + longitude)
-				.then((response) => response.json())
-				.catch((error) => {
-					console.error(error); });
-		});
+		AsyncStorage.multiRemove(['recommendationsListFriends','recommendationsListGroups','user','checkinsList']);
+
+
+		// AsyncStorage.multiGet([ 'token','latitude', 'longitude']).then((data) => {
+		// 	let token = data[0][1];
+		// 	let latitude = data[1][1];
+		// 	let longitude = data[2][1];
+		// 	fetch('http://tp2017.park.bmstu.cloud/tpgeovk/trigger?token=' + token + '&latitude' + latitude + '&longitude' + longitude)
+		// 		.then((response) => response.json())
+		// 		.catch((error) => {
+		// 			console.error(error); });
+		// });
 	}
 
 
 	async componentWillMount() {
-		// await Expo.Font.loadAsync({
-		// 	Roboto: require("native-base/Fonts/Roboto.ttf"),
-		// 	Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
-		// 	Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
-		// });
+
 
 		const token = await AsyncStorage.getItem('token');
 		if (token !== null) {
@@ -78,9 +76,6 @@ export default class App extends Component {
 
 
 	render() {
-		// if (!this.state.isReady) {
-		// 	return <Expo.AppLoading/>;
-		// }
 		console.log('validtoken?:', this.state.isValidToken);
 		if (this.state.isValidToken) {
 			return (
