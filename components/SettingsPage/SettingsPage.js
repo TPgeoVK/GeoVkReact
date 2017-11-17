@@ -123,8 +123,8 @@ export default class SettingsPage extends Component {
 
 		if (this.state.isLoading) {
 			return (
-				<View>
-					<ActivityIndicator/>
+				<View style={{flex: 1}}>
+					<ActivityIndicator size={70} color={'#3d5f86'} style={styles.activityIndicator}/>
 				</View>
 			);
 		}
@@ -135,7 +135,7 @@ export default class SettingsPage extends Component {
 					barStyle="light-content"
 					backgroundColor="#3d5f86"/>
 				<AppHeader title={'О приложении'}/>
-				<Content style={{flex: 0}}><ScrollView
+				<Content style={{flex: 1}}><ScrollView
 					refreshControl={
 						<RefreshControl
 							tintColor='#3d5f86'

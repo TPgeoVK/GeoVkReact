@@ -82,12 +82,12 @@ export default class CheckinsPage extends Component {
 		});
 	}
 
-	_onRefresh() {
+	async _onRefresh() {
 		this.setState({refreshing: true});
 		AsyncStorage.removeItem('user');
 		AsyncStorage.removeItem('checkinsList');
-		AsyncStorage.getItem('token', (err, result) => {
-			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + result)
+		await AsyncStorage.getItem('token', (err, result) => {
+		 fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + result)
 				.then((response) => response.json())
 				.then((responseJson) => {
 					this.setState({
@@ -155,7 +155,9 @@ export default class CheckinsPage extends Component {
 			extrapolate: 'clamp',
 		});
 
+		console.log();
 		return (
+
 			<View style={styles.fill}>
 				<StatusBar
 					translucent
