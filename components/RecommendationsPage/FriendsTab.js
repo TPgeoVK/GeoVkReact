@@ -51,7 +51,7 @@ export default class FriendsTab extends Component {
 		});
 
 		AsyncStorage.getItem('recommendationsListFriends').then((item) => {
-			console.log('из памяти друзья', JSON.parse(item))
+
 			if (JSON.parse(item) === null) {
 				AsyncStorage.multiGet(['token', 'latitude', 'longitude']).then((data) => {
 					let token = data[0][1];
@@ -59,13 +59,13 @@ export default class FriendsTab extends Component {
 					let longitude = data[2][1];
 					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/friends?token=' + token)
 						.then((response) => response.json())
-						.then(async (responseJson) => {
+						.then((responseJson) => {
 							this.setState({
 								recommendationsListFriends: responseJson,
 								isLoadingFriends: false,
 							})
 							AsyncStorage.setItem('recommendationsListFriends', JSON.stringify(this.state.recommendationsListFriends));
-							console.log('скачали и положили', responseJson)
+
 						})
 						.catch((error) => {
 							console.error(error);
@@ -90,40 +90,31 @@ export default class FriendsTab extends Component {
 
 	_onRefresh() {
 		this.setState({refreshing: true});
-		console.log('чистим')
 		AsyncStorage.removeItem('recommendationsListFriends');
 		AsyncStorage.multiGet(['token', 'latitude', 'longitude']).then((data) => {
 			let token = data[0][1];
 			let latitude = data[1][1];
 			let longitude = data[2][1];
+
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/friends?token=' + token)
 				.then((response) => response.json())
-				.then(async (responseJson) => {
+				.then((responseJson) => {
 					this.setState({
 						recommendationsListFriends: responseJson,
 						isLoadingFriends: false,
-					})
+					});
 					AsyncStorage.setItem('recommendationsListFriends', JSON.stringify(this.state.recommendationsListFriends));
-					console.log('скачали и положили', responseJson)
-				})
+				}).then(() => {
+					this.setState({refreshing: false});
+				}
+			)
 				.catch((error) => {
 					console.error(error);
 				});
 		})
-			.then(() => {
-					this.setState({refreshing: false});
-				}
-			);
+
 	}
 
-	_renderScrollViewContent() {
-		const data = Array.from({length: 30});
-		return (
-			<View style={styles.scrollViewContent}>
-				<RecommendationsCardListFriends recommendations={this.state.recommendationsListFriends}/>
-			</View>
-		);
-	}
 
 	render() {
 		if (this.state.isLoadingFriends) {
@@ -133,8 +124,8 @@ export default class FriendsTab extends Component {
 				</View>
 			);
 		}
-		return (
 
+		return (
 			<Animated.ScrollView
 				style={styles.fill}
 				scrollEventThrottle={1}
@@ -149,7 +140,9 @@ export default class FriendsTab extends Component {
 						refreshing={this.state.refreshing}
 						onRefresh={this._onRefresh.bind(this)}/>}
 			>
-				{this._renderScrollViewContent()}
+
+					<RecommendationsCardListFriends recommendations={this.state.recommendationsListFriends}/>
+
 			</Animated.ScrollView>
 		);
 	}

@@ -1,21 +1,18 @@
 import React, {Component} from 'react';
 import {Image, View} from 'react-native';
-import {Content,Text} from 'native-base';
+import {Content, Text} from 'native-base';
 import RecommendationsCardGroups from './RecommendationsCardGroups'
 
 export default class RecommendationsCardListGroups extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			recommendations: this.props.recommendations,
-		};
-		console.log(this.props)
+
 	}
 
 
 	render() {
-		console.log(this.state.recommendations)
-		if (this.state.recommendations === []) {
+		console.log(this.props.recommendations)
+		if (this.props.recommendations === []) {
 			return (
 				<Content>
 					<Text>Нам нечего Вам порекомендовать</Text>
@@ -24,7 +21,8 @@ export default class RecommendationsCardListGroups extends Component {
 		}
 		return (
 			<Content>
-				{this.state.recommendations.map(recommendation => (<RecommendationsCardGroups key={recommendation.id} recommendation={recommendation}/>))}
+				{this.props.recommendations.map(recommendation => (
+					<RecommendationsCardGroups key={recommendation.id} recommendation={recommendation}/>))}
 			</Content>
 		);
 	}

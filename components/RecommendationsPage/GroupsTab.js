@@ -52,7 +52,6 @@ export default class GroupsTab extends Component {
 		});
 
 		AsyncStorage.getItem('recommendationsListGroups').then((item) => {
-			console.log('recommendationsListGroups', JSON.parse(item))
 			if (JSON.parse(item) === null) {
 				AsyncStorage.multiGet(['token', 'latitude', 'longitude']).then((data) => {
 					let token = data[0][1];
@@ -60,13 +59,13 @@ export default class GroupsTab extends Component {
 					let longitude = data[2][1];
 					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/groups?token=' + token)
 						.then((response) => response.json())
-						.then(async (responseJson) => {
+						.then((responseJson) => {
 							this.setState({
 								recommendationsListGroups: responseJson,
 								isLoadingGroups: false,
 							})
 							AsyncStorage.setItem('recommendationsListGroups', JSON.stringify(this.state.recommendationsListGroups));
-							console.log('recgr', responseJson, this.state.recommendationsListGroups);
+
 						})
 						.catch((error) => {
 							console.error(error);
@@ -91,7 +90,6 @@ export default class GroupsTab extends Component {
 
 	_onRefresh() {
 		this.setState({refreshing: true});
-		console.log('чистим')
 		AsyncStorage.removeItem('recommendationsListGroups');
 		AsyncStorage.multiGet(['token', 'latitude', 'longitude']).then((data) => {
 			let token = data[0][1];
@@ -99,32 +97,24 @@ export default class GroupsTab extends Component {
 			let longitude = data[2][1];
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/recommend/groups?token=' + token)
 				.then((response) => response.json())
-				.then(async (responseJson) => {
+				.then((responseJson) => {
 					this.setState({
 						recommendationsListGroups: responseJson,
 						isLoadingGroups: false,
 					})
 					AsyncStorage.setItem('recommendationsListGroups', JSON.stringify(this.state.recommendationsListGroups));
-					console.log('recgr', responseJson, this.state.recommendationsListGroups);
-				})
+
+				}).then(() => {
+					this.setState({refreshing: false});
+				}
+			)
 				.catch((error) => {
 					console.error(error);
 				});
 		})
-			.then(() => {
-					this.setState({refreshing: false});
-				}
-			);
+
 	}
 
-	_renderScrollViewContent() {
-		const data = Array.from({length: 30});
-		return (
-			<View style={styles.scrollViewContent}>
-				<RecommendationsCardListGroups recommendations={this.state.recommendationsListGroups}/>
-			</View>
-		);
-	}
 
 	render() {
 		if (this.state.isLoadingGroups) {
@@ -150,7 +140,9 @@ export default class GroupsTab extends Component {
 						refreshing={this.state.refreshing}
 						onRefresh={this._onRefresh.bind(this)}/>}
 			>
-				{this._renderScrollViewContent()}
+
+					<RecommendationsCardListGroups recommendations={this.state.recommendationsListGroups}/>
+
 			</Animated.ScrollView>
 		);
 	}
