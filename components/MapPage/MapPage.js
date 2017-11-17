@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {AppRegistry, Image, StyleSheet, View, AsyncStorage, StatusBar,Button, Linking} from 'react-native';
-import { Text, Fab} from 'native-base';
+import {AppRegistry, Image, StyleSheet, View, AsyncStorage, StatusBar, Button, Linking} from 'react-native';
+import {Text, Fab} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
 import styles from './styleMapPage';
@@ -123,7 +123,7 @@ export default class MapPage extends Component {
 
 
 	render() {
-		if (this.state.isLoadingFriends || this.state.markersCheckins==[]) {
+		if (this.state.isLoadingFriends || this.state.markersCheckins == []) {
 			console.log('!!!!')
 			console.log(this.state.markersCheckins)
 			console.log(this.state.markerPosition)
@@ -162,18 +162,20 @@ export default class MapPage extends Component {
 									'longitude': checkin.place.longitude
 								}}
 								image={checkin.user.photo200}
-								>
+							>
 								{/*<Image*/}
 								{/*source={{uri: `data:image/png;base64,${checkin.user.photo200Base64}`}}*/}
 								{/*style={styles.circle}/>*/}
-								<MapView.Callout onPress={() =>
-								{Linking.openURL(`https://vk.com/id${checkin.user.id}`)
+								<MapView.Callout onPress={() => {
+									Linking.openURL(`https://vk.com/id${checkin.user.id}`)
 										.catch(err => console.error('An error occurred', err));
-									console.log(`https://vk.com/id${checkin.user.id}`)}}>
+									console.log(`https://vk.com/id${checkin.user.id}`)
+								}}>
 									<View style={styles.callout}>
-										<Text>{checkin.user.firstName} {checkin.user.lastName }</Text>
-										<Text note>{(checkin.text).slice(0,40)}...</Text>
-										<Button color={'#6796CC'} title='Посмотреть' onPress={() => {}}/>
+										<Text>{checkin.user.firstName} {checkin.user.lastName}</Text>
+										<Text note>{(checkin.text).slice(0, 40)}...</Text>
+										<Button color={'#6796CC'} title='Посмотреть' onPress={() => {
+										}}/>
 									</View>
 								</MapView.Callout>
 
@@ -190,7 +192,8 @@ export default class MapPage extends Component {
 						position="bottomRight">
 						<Icon style={styles.fabIcon} name="my-location"
 						      onPress={() => {
-							      this.refs.map.animateToRegion(this.state.position)}}/>
+							      this.refs.map.animateToRegion(this.state.position)
+						      }}/>
 					</Fab>
 				</View>
 			);

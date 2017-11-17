@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppRegistry, Image, StyleSheet, View, WebView,StatusBar} from 'react-native';
+import {AppRegistry, Image, StyleSheet, View, WebView, StatusBar} from 'react-native';
 import {Container, Button, Text} from 'native-base';
 import styles from './styleLoginPage'
 import LoginView from './LoginView'

@@ -82,14 +82,14 @@ export default class CheckinsPage extends Component {
 		});
 	}
 
-	_onRefresh () {
+	_onRefresh() {
 		this.setState({refreshing: true});
 		AsyncStorage.removeItem('user');
 		AsyncStorage.removeItem('checkinsList');
 		AsyncStorage.getItem('token', (err, result) => {
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + result)
 				.then((response) => response.json())
-				.then( (responseJson) => {
+				.then((responseJson) => {
 					this.setState({
 						checkinsList: responseJson,
 						isLoading: false,
@@ -102,7 +102,7 @@ export default class CheckinsPage extends Component {
 
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/user?token=' + result)
 				.then((response) => response.json())
-				.then( (responseJson) => {
+				.then((responseJson) => {
 					this.setState({
 						user: responseJson,
 						isLoadingUser: false,
@@ -114,9 +114,9 @@ export default class CheckinsPage extends Component {
 				});
 		})
 			.then(() => {
-				this.setState({refreshing: false});
-			}
-		);
+					this.setState({refreshing: false});
+				}
+			);
 	}
 
 
@@ -138,7 +138,6 @@ export default class CheckinsPage extends Component {
 	}
 
 	render() {
-		//console.log('render111', this.state.checkinsList);
 		const headerTranslate = this.state.scrollY.interpolate({
 			inputRange: [0, consts.HEADER_SCROLL_DISTANCE],
 			outputRange: [0, -consts.HEADER_SCROLL_DISTANCE],
@@ -174,7 +173,9 @@ export default class CheckinsPage extends Component {
 							tintColor='#3d5f86'
 							colors={['#3d5f86']}
 							refreshing={this.state.refreshing}
-							onRefresh={this._onRefresh.bind(this)}/>}
+							onRefresh={this._onRefresh.bind(this)}
+						/>
+					}
 				>
 					{this._renderScrollViewContent()}
 				</Animated.ScrollView>

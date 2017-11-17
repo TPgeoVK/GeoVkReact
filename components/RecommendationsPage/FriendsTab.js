@@ -141,7 +141,7 @@ export default class FriendsTab extends Component {
 						onRefresh={this._onRefresh.bind(this)}/>}
 			>
 
-					<RecommendationsCardListFriends recommendations={this.state.recommendationsListFriends}/>
+				<RecommendationsCardListFriends recommendations={this.state.recommendationsListFriends}/>
 
 			</Animated.ScrollView>
 		);

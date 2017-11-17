@@ -22,7 +22,9 @@ export default class RecommendationsCardFriends extends Component {
 					<Right>
 
 						<Button style={styles.button}
-						        onPress={() => {Linking.openURL(`https://vk.com/id${recommendation.id}`)}}>
+						        onPress={() => {
+							        Linking.openURL(`https://vk.com/id${recommendation.id}`)
+						        }}>
 							<Text style={styles.textButton}>Добавить в друзья</Text>
 						</Button>
 					</Right>

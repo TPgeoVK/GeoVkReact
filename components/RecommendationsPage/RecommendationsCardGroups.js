@@ -21,7 +21,9 @@ export default class RecommendationsCardGroups extends Component {
 					<Right>
 
 						<Button style={styles.button}
-						        onPress={() => {Linking.openURL(`https://vk.com/club${recommendation.id}`)}}>
+						        onPress={() => {
+							        Linking.openURL(`https://vk.com/club${recommendation.id}`)
+						        }}>
 							<Text style={styles.textButton}>Подписаться</Text>
 						</Button>
 					</Right>

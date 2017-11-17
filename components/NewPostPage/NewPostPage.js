@@ -35,7 +35,6 @@ export default class NewPostPage extends Component {
 			(error) => {
 				console.log(error)
 			},
-			// {enableHighAccuracy:true,timeout:20000,maximumAge:1000}
 		)
 
 
@@ -63,8 +62,8 @@ export default class NewPostPage extends Component {
 		});
 		this.state.count++;
 		console.log(this.state.text)
-		if (this.state.text[this.state.text.length - 1] === ' ' || this.state.count%3 === 0 || this.state.count === 1) {
-			console.log('if',this.state.text)
+		if (this.state.text[this.state.text.length - 1] === ' ' || this.state.count % 3 === 0 || this.state.count === 1) {
+			console.log('if', this.state.text)
 			AsyncStorage.multiGet(['token', 'latitude', 'longitude']).then((data) => {
 				let token = data[0][1];
 				let latitude = data[1][1];

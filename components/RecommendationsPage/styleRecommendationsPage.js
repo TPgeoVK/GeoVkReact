@@ -23,7 +23,7 @@ export default styles = {
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
-	scrollViewContent:{
-		flex:1,
+	scrollViewContent: {
+		flex: 1,
 	}
 }

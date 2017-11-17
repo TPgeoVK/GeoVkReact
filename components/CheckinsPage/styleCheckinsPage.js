@@ -35,7 +35,7 @@ export default styles = {
 	},
 	scrollViewContent: {
 		marginTop: consts.HEADER_MAX_HEIGHT,
-		flex:1,
+		flex: 1,
 	},
 	row: {
 		height: 40,

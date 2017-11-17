@@ -141,7 +141,7 @@ export default class GroupsTab extends Component {
 						onRefresh={this._onRefresh.bind(this)}/>}
 			>
 
-					<RecommendationsCardListGroups recommendations={this.state.recommendationsListGroups}/>
+				<RecommendationsCardListGroups recommendations={this.state.recommendationsListGroups}/>
 
 			</Animated.ScrollView>
 		);

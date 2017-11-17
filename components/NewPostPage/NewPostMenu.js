@@ -5,21 +5,17 @@ import styles from './styleNewPostMenu'
 import {AsyncStorage} from 'react-native';
 
 
-
 export default class NewPostMenu extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-
-		};
+		this.state = {};
 	}
 
-	_onPress = async() => {
+	_onPress = async () => {
 
 		console.log('text', this.props.text);
 		console.log('placeid', this.props.place.id);
 		AsyncStorage.getItem('token', (err, result) => {
-			//TODO
 			fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/post/create', {
 				method: 'POST',
 				headers: {
@@ -31,15 +27,16 @@ export default class NewPostMenu extends Component {
 					placeId: this.props.place.id,
 				})
 			}).then((response) => response.json())
-				.then(async (responseJson) => {
+				.then( (responseJson) => {
 					console.log('post', responseJson)
 				})
 				.catch((error) => {
-					console.error(error); });
+					console.error(error);
+				});
 
 		});
 		this.props.navigation.goBack();
-		//TODO
+
 	}
 
 	render() {
@@ -53,7 +50,7 @@ export default class NewPostMenu extends Component {
 						<Icon style={styles.icon} name="clear"/>
 					</Button>
 					{/*<Button vertical>*/}
-						{/*<Icon style={styles.icon} name="location-on"/>*/}
+					{/*<Icon style={styles.icon} name="location-on"/>*/}
 					{/*</Button>*/}
 					<Button vertical
 					        onPress={() => {

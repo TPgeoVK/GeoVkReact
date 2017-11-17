@@ -25,7 +25,9 @@ export default class App extends Component {
 					["longitude", long.toString()]
 				])
 			},
-			(error)=>{console.log(error)},
+			(error) => {
+				console.log(error)
+			},
 		)
 
 
@@ -38,7 +40,7 @@ export default class App extends Component {
 			])
 		});
 
-		AsyncStorage.multiRemove(['recommendationsListFriends','recommendationsListGroups','user','checkinsList']);
+		AsyncStorage.multiRemove(['recommendationsListFriends', 'recommendationsListGroups', 'user', 'checkinsList']);
 
 
 		// AsyncStorage.multiGet([ 'token','latitude', 'longitude']).then((data) => {

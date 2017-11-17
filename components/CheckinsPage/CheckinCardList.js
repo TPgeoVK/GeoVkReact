@@ -10,7 +10,6 @@ export default class CheckinCardList extends Component {
 
 	render() {
 		const checkins = this.props.checkinsList
-//TODO
 		if (checkins === []) {
 			return (
 				<Content>
@@ -21,7 +20,6 @@ export default class CheckinCardList extends Component {
 		return (
 			<Content>
 				{checkins.map(checkin => (<CheckinCard key={checkin.checkinId} checkin={checkin}/>))}
-				{/*<CheckinCard checkin={this.state.checkins[1]}/>*/}
 			</Content>
 		);
 	}

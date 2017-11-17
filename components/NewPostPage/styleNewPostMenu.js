@@ -11,7 +11,7 @@ export default styles = {
 	card: {
 		flex: 0,
 		flexWrap: 'nowrap',
-		height:80
+		height: 80
 	},
 
 }

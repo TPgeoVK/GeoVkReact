@@ -17,21 +17,23 @@ export default class DevelopersCard extends Component {
 		}
 
 		return (
-				<CardItem>
-					<Left>
-						<Thumbnail source={{uri: photo}}/>
-						<Body>
-						<Text style={styles.text}>{name}</Text>
-						</Body>
-					</Left>
-					<Right>
+			<CardItem>
+				<Left>
+					<Thumbnail source={{uri: photo}}/>
+					<Body>
+					<Text style={styles.text}>{name}</Text>
+					</Body>
+				</Left>
+				<Right>
 
-						<Button style={styles.button}
-						        onPress={() => {Linking.openURL(`https://vk.com/id${developer.id}`)}}>
-							<Text style={styles.textButton}>Добавить в друзья</Text>
-						</Button>
-					</Right>
-				</CardItem>
+					<Button style={styles.button}
+					        onPress={() => {
+						        Linking.openURL(`https://vk.com/id${developer.id}`)
+					        }}>
+						<Text style={styles.textButton}>Добавить в друзья</Text>
+					</Button>
+				</Right>
+			</CardItem>
 
 		)
 	}
