@@ -8,7 +8,8 @@ import {
 	View,
 	AsyncStorage,
 	ActivityIndicator,
-	Text, RefreshControl
+	Text, RefreshControl,
+	Alert
 } from 'react-native';
 import {Fab} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -80,6 +81,56 @@ export default class CheckinsPage extends Component {
 				})
 			}
 		});
+
+		navigator.geolocation.getCurrentPosition((position) => {
+			let lat = parseFloat(position.coords.latitude);
+			let long = parseFloat(position.coords.longitude);
+			AsyncStorage.multiSet([
+				["latitude", lat.toString()],
+				["longitude", long.toString()]
+			])
+
+
+			AsyncStorage.multiGet(['token']).then((data) => {
+				let token = data[0][1];
+
+				fetch('http://tp2017.park.bmstu.cloud/tpgeovk/location/detectPlace', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						token: token,
+						latitude: lat,
+						longitude: long,
+						text: 'mail.ru',
+					})
+				}).then((response) => response.json())
+					.then(async (responseJson) => {
+						if (responseJson.title)
+							Alert.alert(
+								'Зачикиньтесь!',
+								'Вы сейчас в '+ responseJson.title +'?',
+								[
+									{text: 'Check in!', onPress: () => this.props.navigation.navigate('NewPost')},
+									{text: 'Да', onPress: () => console.log('Yes Pressed')},
+									{text: 'Нет', onPress: () => console.log('No Pressed'), style: 'cancel'},
+								],
+								{ cancelable: false }
+							)
+					})
+					.catch((error) => {
+						console.error(error);
+					});
+
+			});
+
+				},
+				(error) => {
+					console.log(error)
+				},
+			)
+
 	}
 
 	async _onRefresh() {
@@ -221,4 +272,3 @@ export default class CheckinsPage extends Component {
 
 	}
 }
-

@@ -17,28 +17,28 @@ export default class App extends Component {
 	}
 
 	componentDidMount() {
-		navigator.geolocation.getCurrentPosition((position) => {
-				let lat = parseFloat(position.coords.latitude);
-				let long = parseFloat(position.coords.longitude);
-				AsyncStorage.multiSet([
-					["latitude", lat.toString()],
-					["longitude", long.toString()]
-				])
-			},
-			(error) => {
-				console.log(error)
-			},
-		)
+		// navigator.geolocation.getCurrentPosition((position) => {
+		// 		let lat = parseFloat(position.coords.latitude);
+		// 		let long = parseFloat(position.coords.longitude);
+		// 		AsyncStorage.multiSet([
+		// 			["latitude", lat],
+		// 			["longitude", long]
+		// 		])
+		// 	},
+		// 	(error) => {
+		// 		console.log(error)
+		// 	},
+		// )
 
 
-		this.watchID = navigator.geolocation.watchPosition((position) => {
-			let lat = parseFloat(position.coords.latitude);
-			let long = parseFloat(position.coords.longitude);
-			AsyncStorage.multiSet([
-				["latitude", lat.toString()],
-				["longitude", long.toString()]
-			])
-		});
+		// this.watchID = navigator.geolocation.watchPosition((position) => {
+		// 	let lat = parseFloat(position.coords.latitude);
+		// 	let long = parseFloat(position.coords.longitude);
+		// 	AsyncStorage.multiSet([
+		// 		["latitude", lat],
+		// 		["longitude", long]
+		// 	])
+		// });
 
 		//AsyncStorage.multiRemove(['recommendationsListFriends', 'recommendationsListGroups', 'user', 'checkinsList']);
 
@@ -56,8 +56,6 @@ export default class App extends Component {
 
 
 	async componentWillMount() {
-
-
 		const token = await AsyncStorage.getItem('token');
 		if (token !== null) {
 			console.log('check token to bmstu:', token);
