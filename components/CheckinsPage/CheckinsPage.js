@@ -33,55 +33,6 @@ export default class CheckinsPage extends Component {
 	}
 
 	componentDidMount() {
-		AsyncStorage.getItem('checkinsList').then((item) => {
-			console.log('checkinsList', JSON.parse(item))
-			if (JSON.parse(item) === null) {
-				AsyncStorage.getItem('token', (err, result) => {
-					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + result)
-						.then((response) => response.json())
-						.then( (responseJson) => {
-							this.setState({
-								checkinsList: responseJson,
-								isLoading: false,
-							});
-							AsyncStorage.setItem('checkinsList', JSON.stringify(this.state.checkinsList));
-						})
-						.catch((error) => {
-							console.error(error);
-						});
-				});
-			} else {
-				this.setState({
-					checkinsList: JSON.parse(item),
-					isLoading: false,
-				})
-			}
-
-		});
-		AsyncStorage.getItem('user').then((item) => {
-			if (JSON.parse(item) === null) {
-				AsyncStorage.getItem('token', (err, result) => {
-					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/user?token=' + result)
-						.then((response) => response.json())
-						.then( (responseJson) => {
-							this.setState({
-								user: responseJson,
-								isLoadingUser: false,
-							});
-							AsyncStorage.setItem('user', JSON.stringify(this.state.user));
-						})
-						.catch((error) => {
-							console.error(error);
-						});
-				});
-			} else {
-				this.setState({
-					user: JSON.parse(item),
-					isLoadingUser: false,
-				})
-			}
-		});
-
 		navigator.geolocation.getCurrentPosition((position) => {
 			let lat = parseFloat(position.coords.latitude);
 			let long = parseFloat(position.coords.longitude);
@@ -130,6 +81,54 @@ export default class CheckinsPage extends Component {
 					console.log(error)
 				},
 			)
+		AsyncStorage.getItem('checkinsList').then((item) => {
+			console.log('checkinsList', JSON.parse(item))
+			if (JSON.parse(item) === null) {
+				AsyncStorage.getItem('token', (err, result) => {
+					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/checkins/all?token=' + result)
+						.then((response) => response.json())
+						.then( (responseJson) => {
+							this.setState({
+								checkinsList: responseJson,
+								isLoading: false,
+							});
+							AsyncStorage.setItem('checkinsList', JSON.stringify(this.state.checkinsList));
+						})
+						.catch((error) => {
+							console.error(error);
+						});
+				});
+			} else {
+				this.setState({
+					checkinsList: JSON.parse(item),
+					isLoading: false,
+				})
+			}
+
+		});
+		AsyncStorage.getItem('user').then((item) => {
+			if (JSON.parse(item) === null) {
+				AsyncStorage.getItem('token', (err, result) => {
+					fetch('http://tp2017.park.bmstu.cloud/tpgeovk/vkapi/user?token=' + result)
+						.then((response) => response.json())
+						.then( (responseJson) => {
+							this.setState({
+								user: responseJson,
+								isLoadingUser: false,
+							});
+							AsyncStorage.setItem('user', JSON.stringify(this.state.user));
+						})
+						.catch((error) => {
+							console.error(error);
+						});
+				});
+			} else {
+				this.setState({
+					user: JSON.parse(item),
+					isLoadingUser: false,
+				})
+			}
+		});
 
 	}
 
